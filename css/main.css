@@ -1,0 +1,122 @@
+#adsbox {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    width: 385px;
+    z-index: 10;
+}
+
+#ads_close {
+    background: url("images/x_icon.png") no-repeat scroll 0 0 transparent;
+    border: medium none !important;
+    height: 15px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    text-decoration: none !important;
+    top: 10px;
+    width: 15px;
+}
+
+#ads_close:hover {
+    background-position: left bottom;
+}
+
+#adsbox .ads {
+	border-radius: 0 0 4px 4px;
+    -moz-border-radius: 0 0 4px 4px;
+	-webkit-border-radius: 0 0 4px 4px;
+    -webkit-box-shadow: 0 0 10px #505050;
+	-moz-box-shadow: 0 0 10px #505050;
+	box-shadow: 0 0 10px #505050;
+    background: -moz-linear-gradient(#F3F3F3, #FFFFFF, #F3F3F3) repeat scroll 0 0 #F4F4F4;
+    border-color: #FFFFFF;
+    overflow: hidden;
+    padding: 10px;
+	background: #202020;
+	height: 290px;
+}
+
+.adsborder {
+	border: 5px solid #333333;
+	width: 336px;
+	height: 280px;
+}
+
+#ads_aplink{
+    border: medium none !important;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    text-decoration: none !important;
+    top: 30px;
+    width: 10px;
+	writing-mode:tb-rl;
+	color: #555;
+	word-wrap: break-word;
+}
+
+footer {
+    background-color: #202020;
+    bottom: 0;
+    height: 45px;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 100000;
+	border-top: 2px solid #202020;
+	border-radius: 4px 4px 0px 0px;
+	-webkit-border-radius: 4px 4px 0px 0px;
+	-moz-border-radius: 4px 4px 0px 0px;
+	box-shadow: 0px 0px 10px #101010;
+    -webkit-box-shadow: 0 0 10px #101010;
+	-moz-box-shadow: 0 0 10px #101010;
+}
+
+section, footer {
+    display: block;
+}
+
+footer h2 {
+    color: #EEEEEE;
+    font-size: 14px;
+    font-weight: normal;
+    left: 50%;
+    margin-left: -400px;
+    padding: 13px 0 0;
+    position: absolute;
+    width: 540px;
+	font-weight: bold;
+}
+
+footer h2 i {
+    color: #888888;
+    font-style: normal;
+}
+
+footer a.gbin1, a.gbin1:visited {
+    color: #999999;
+    font-size: 14px;
+    left: 50%;
+    margin: 14px 0 0 110px;
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+}
+
+footer a i {
+    color: #CCCCCC;
+    font-style: normal;
+
+}
+
+footer a i b {
+    color: #E8E8E8;
+    font-weight: normal;
+	font-weight: bold;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

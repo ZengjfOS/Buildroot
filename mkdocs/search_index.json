@@ -1,0 +1,29 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Welcome to ARM-Settings\n\n\nThis Page just for ARM machine parameter settings.\n\n\nBase Infomation\n\n\nIf necessary, we will finish it.\n\n\nNetwork\n\n\n\n\n\u52a8\u6001IP\n\n\n\u9759\u6001IP\n\n\n\n\nShow Data\n\n\nlink to php file",
+            "title": "Home"
+        },
+        {
+            "location": "/#welcome-to-arm-settings",
+            "text": "This Page just for ARM machine parameter settings.",
+            "title": "Welcome to ARM-Settings"
+        },
+        {
+            "location": "/#base-infomation",
+            "text": "If necessary, we will finish it.",
+            "title": "Base Infomation"
+        },
+        {
+            "location": "/#network",
+            "text": "\u52a8\u6001IP  \u9759\u6001IP",
+            "title": "Network"
+        },
+        {
+            "location": "/#show-data",
+            "text": "link to php file",
+            "title": "Show Data"
+        }
+    ]
+}

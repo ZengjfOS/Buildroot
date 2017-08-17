@@ -1,0 +1,60 @@
+{
+    "hardware_test" : {
+        "network1" : {
+            "value" : "192.168.1.1",
+            "check" : "OK"
+        },
+        "network2" : {
+            "value" : "192.168.1.1",
+            "check" : "OK"
+        },
+        "rtc" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "keyboard" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "mouse" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "DB9_RS232" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "CON3_USB" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "CON3_I2C" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "CON3_UART" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "CON3_CAN" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "SD_Disk" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "MIO_8_GPIO" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "MIO_USB" : {
+            "value" : "",
+            "check" : "OK"
+        },
+        "CN1_I2C" : {
+            "value" : "",
+            "check" : "OK"
+        }
+    }
+}

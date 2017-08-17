@@ -1,0 +1,281 @@
+/* Entire mail form. Be very explicit with sizes to avoid IE6 textfield bug. */
+.mailform {
+ width: 80%;
+ /* removed again due to issues with IE6 and 7
+ padding-left: 10%;
+ padding-right: 10%;
+ */
+}
+
+/* Field name in mail forms */
+.fieldname {
+ padding: 12px 5px 5px 5px;
+}
+
+/* Required field name in mail forms */
+.requiredfieldname {
+ padding: 12px 5px 5px 5px;
+ font-weight: bold;
+}
+
+/* Applied to the fields in mail form */
+.formfields {
+ 
+}
+
+/* Applied to the DIV that contains buttons in mail form */
+.fieldbuttons {
+ padding-top: 1em;
+ padding-bottom: 2em;
+ text-align: center;
+}
+
+/* A file included by the some modules... */
+.includeitem {
+padding: 0px;
+border-bottom: 0px solid #D4D0C8;
+}
+
+/* ... its title, ... */
+.includetitle {
+ margin-top: 0;
+
+ padding: 0px;
+ color: #2B99E6;
+}
+
+/* ... its date and link ... */
+.includedate, .includereadmore {
+    border-top: 1px dotted #303030;
+    padding: 3px 2px 7px;
+	text-align: right;
+}
+
+.includedate, .includereadmore a {
+    font-size: 14px;
+	text-align: right;
+}
+
+/* ... its text */
+.includetext {
+ padding: 0px;
+}
+
+/* Editing table */
+table.meshcmseditor {
+ border-top: 1px dotted silver;
+ border-left: 1px dotted silver;
+}
+
+table.meshcmseditor th, table.meshcmseditor td {
+ padding: 2px;
+ border-right: 1px dotted silver;
+ border-bottom: 1px dotted silver;
+}
+
+table.meshcmseditor th {
+ text-align: center;
+}
+
+table.meshcmseditor tr:hover {
+  background-color: #edeeef;
+}
+
+/* Editing DIVs */
+div.meshcmseditor {
+ padding: 1em;
+ border: 1px dotted silver;
+ margin-bottom: 1em;
+}
+
+div.meshcmsfieldlabel {
+ border-bottom: 1px dotted silver;
+ margin-top: 0.8em;
+ margin-bottom: 0.2em;
+}
+
+div.meshcmsfield {
+ white-space: nowrap;
+}
+
+div.meshcmscheckbox {
+ margin: 1em 0 0 1em;
+}
+
+div.meshcmsbuttons {
+ margin-top: 0.8em;
+ border-top: 1px dotted silver;
+ padding-top: 0.2em;
+ text-align: center;
+}
+
+/* This style causes issue with IE6
+fieldset.meshcmseditor {
+ margin: 0 0.5em 1em 0.5em;
+ padding: 0.2em 1em 1em 1em;
+}
+*/
+
+fieldset.meshcmseditor legend {
+ margin-bottom: 0.5em;
+}
+
+a.meshcmspanelicon {
+ /*width: 12em;*/
+ display: block;
+ float: left;
+ margin: 0.5em;
+ padding: 5px;
+ border: 0;
+}
+
+a.meshcmspanelicon img {
+ float: left;
+ margin-right: 0.5em;
+}
+
+a.meshcmspanelicon:hover {
+ text-decoration: none;
+ padding: 4px;
+ border: 1px solid silver;
+}
+
+/* style for the thumbnail box in the lightbox image gallery */
+.imagebox {
+ float: left;
+ margin: 0 30px 30px 0;
+}
+
+.clearLeft {
+ clear: left;
+}
+
+/* IE6 holly hack \*/
+* html .lightbox {height: 1%;}
+/* End IE6 holly hack */
+
+.meshcmsinfo {
+ border: 1px dotted silver;
+ padding: 0.5em;
+ font-style: italic;
+}
+
+/* media player */
+
+.meshcmsMediaPlayerScreen {
+ width: 400px;
+ height: 300px;
+}
+
+.meshcmsMediaPlayer_vertical .meshcmsMediaPlayerScreen {
+}
+
+.meshcmsMediaPlayer_horizontal .meshcmsMediaPlayerScreen {
+    float: left;
+}
+
+.meshcmsPlayList {
+ background-color: #7b7b7b;
+ overflow: auto;
+ font-family: sans-serif;
+}
+
+.meshcmsMediaPlayer_vertical .meshcmsPlayList {
+ width: 400px;
+ height: 180px;
+}
+
+.meshcmsMediaPlayer_horizontal .meshcmsPlayList {
+ width: 202px;
+ height: 300px;
+}
+
+.meshcmsPlayList a {
+ float: left;
+ width: 176px;
+ height: 56px;
+ overflow: hidden;
+ border: 1px solid #888888;
+ padding: 2px;
+ margin: 1px;
+ text-decoration: none;
+ color: white;
+}
+
+.meshcmsPlayList a.playing {
+ background-color: #afafaf;
+}
+
+.meshcmsPlayList a:hover {
+ background-color: #afafaf;
+ text-decoration: none;
+}
+
+.meshcmsPlayList img {
+ float: left;
+ border: 1px solid #5a5a5a;
+ margin-right: 2px;
+}
+
+.moduletitle{
+ font-size: 14px;
+ font-family: arial;
+ padding: 5px 0px;
+}
+
+.modulebody{
+ font-size: 12px;
+ font-family: arial;
+ padding: 5px 0px;
+}
+
+.breadcrumbs{
+  margin: 0 auto;
+  width: 960px;	
+}
+
+.breadcrumbscontent{
+  width: 100%;
+  float: left;
+}
+
+/* player container */
+#player {
+	height:425px;
+	width:320px;
+	border: 1px solid #fff;
+	outline: 1px solid #333;
+	-moz-outline-radius:4px;
+	cursor:pointer;
+	float:left;
+	text-align:center;
+	margin-right:15px;
+	padding: 0px;
+}
+
+/* play button */
+#player img {
+	margin-top: 97px;
+}
+
+/* info area */
+#player div.info {
+	height:40px;
+	background:#000 url(/gbin1/admin/modules/video_player/h80.png) repeat-x;
+	opacity:0.7;
+	color:#fff;
+	margin-top:45px;
+	text-align:left;
+	padding:5px 15px;	
+	font-family:"bitstream vera sans","trebuchet ms";
+	font-size:12px;
+	border-top:1px solid #ccc;
+	margin-top:80px;
+}
+
+/* duration data inside info area */
+#player div.info span {
+	color:#99FF99;
+	display:block;
+	font-weight:bold;
+}
