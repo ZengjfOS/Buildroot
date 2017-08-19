@@ -144,86 +144,86 @@
             "index" : 1,
             "descriptor" : "eth0",
             "range" : "192.168.1.1",
-            "value" : "192.168.1.1"
+            "value" : "192.168.1.1",
+            "status" : "error"
         },
         "network2" : {
             "index" : 2,
             "descriptor" : "eth1",
             "range" : "192.168.1.1",
-            "value" : "192.168.1.1"
+            "value" : "192.168.1.1",
+            "status" : "error"
         },
         "rtc" : {
             "index" : 3,
             "descriptor" : "i2c",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "keyboard" : {
             "index" : 4,
             "descriptor" : "usb",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "mouse" : {
             "index" : 5,
             "descriptor" : "usb",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "DB9_RS232" : {
             "index" : 6,
             "descriptor" : "air quality",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "CON3_USB" : {
             "index" : 7,
             "descriptor" : "U Disk",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "CON3_I2C" : {
             "index" : 8,
             "descriptor" : "temperature",
             "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "CON3_UART" : {
             "index" : 9,
             "descriptor" : "temperature",
             "range" : "",
-            "value" : ""
-        },
-        "CON3_CAN" : {
-            "index" : 10,
-            "descriptor" : "can",
-            "range" : "",
-            "value" : ""
-        },
-        "SD_Disk" : {
-            "index" : 11,
-            "descriptor" : "sdio",
-            "range" : "",
-            "value" : ""
+            "value" : "",
+            "status" : "error"
         },
         "MIO_8_GPIO" : {
-            "index" : 12,
-            "descriptor" : "gpio",
-            "range" : "",
-            "value" : ""
-        },
-        "MIO_USB" : {
-            "index" : 13,
-            "descriptor" : "U disk",
-            "range" : "",
-            "value" : ""
-        },
-        "CN1_I2C" : {
-            "index" : 14,
+            "index" : 10,
             "descriptor" : "gpio",
             "range" : "",
             "value" : "",
-            "status_tag_id" :"cn1_i2c"
+            "status" : "error"
+        },
+        "MIO_USB" : {
+            "index" : 11,
+            "descriptor" : "U disk",
+            "range" : "",
+            "value" : "",
+            "status" : "error"
+        },
+        "EEPROM" : {
+            "index" : 12,
+            "descriptor" : "i2c",
+            "range" : "",
+            "value" : "",
+            "status_tag_id" :"cn1_i2c",
+            "status" : "error"
         }
     }
 }

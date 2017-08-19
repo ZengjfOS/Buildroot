@@ -38,7 +38,7 @@
 
           <?php include 'network.php'; ?>
 
-          <?php include 'data_and_time.php'; ?>
+          <?php include 'date_and_time.php'; ?>
 
           <!-- <?php include 'upload_system.php'; ?> -->
 

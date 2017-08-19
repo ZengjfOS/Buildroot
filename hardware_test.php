@@ -23,7 +23,7 @@
           echo "<td>".$value["range"]."</td>";
           echo "<td id='".$key."_value'>".$value["value"]."</td>";
           echo "<td>";
-            echo "<img src='img/OK.png' width='30' height='30' id='".$key."_img'/>";
+          echo "<img src='img/".$value["status"].".png' width='30' height='30' id='".$key."_status'/>";
           echo "</td>";
           echo "</tr>";
       }

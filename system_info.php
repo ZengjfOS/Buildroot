@@ -8,9 +8,9 @@
             echo "  <td>".$ret."</td>\n";
             echo "  <td>";
             if ($ret != null)
-	            echo "   <img src='img/OK.png' width='30' height='30'/>";
+	            echo "   <img src='img/ok.png' width='30' height='30'/>";
             else
-	            echo "   <img src='img/ERROR.png' width='30' height='30'/>";
+	            echo "   <img src='img/error.png' width='30' height='30'/>";
             echo "  </td>";
             echo "</tr>";
         }
