@@ -143,15 +143,15 @@
         "network1" : {
             "index" : 1,
             "descriptor" : "eth0",
-            "range" : "192.168.1.1",
-            "value" : "192.168.1.1",
+            "range" : "192.168.2.10",
+            "value" : "192.168.2.10",
             "status" : "error"
         },
         "network2" : {
             "index" : 2,
             "descriptor" : "eth1",
-            "range" : "192.168.1.1",
-            "value" : "192.168.1.1",
+            "range" : "192.168.3.200",
+            "value" : "192.168.3.200",
             "status" : "error"
         },
         "rtc" : {
@@ -196,29 +196,22 @@
             "value" : "",
             "status" : "error"
         },
-        "CON3_UART" : {
-            "index" : 9,
-            "descriptor" : "temperature",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
         "MIO_8_GPIO" : {
-            "index" : 10,
+            "index" : 9,
             "descriptor" : "gpio",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "MIO_USB" : {
-            "index" : 11,
+            "index" : 10,
             "descriptor" : "U disk",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "EEPROM" : {
-            "index" : 12,
+            "index" : 11,
             "descriptor" : "i2c",
             "range" : "",
             "value" : "",

@@ -1,5 +1,7 @@
 <?php header("Access-Control-Allow-Origin: *") ?>
 <?php
+    include 'functions.php';
+
     $data = json_decode(file_get_contents('php://input'), true);
     $categories = $data["categories"];
     $type = $data["type"];
@@ -55,6 +57,33 @@
     if ($categories == "hardware_test") {
         $output = `bin/hardware_test`;
         $json_array = json_decode($output, true);
+
+        $result = exec("ping -c 1 ".$MiniOS->configs["hardware_test"]["network1"]["value"]." 2>&1 | grep ', 0% packet loss'");
+        $json_array["network1_result"] = $result;
+        if ($result != null)
+            $json_array["data"]["network1"]["status"] = "ok";
+        else
+            $json_array["data"]["network1"]["status"] = "error";
+
+        $json_array["data"]["network1"]["name"] = "network1";
+        $json_array["data"]["network1"]["index"] = 1;
+        $json_array["data"]["network1"]["descriptor"] = "network";
+        $json_array["data"]["network1"]["range"] = "";
+        $json_array["data"]["network1"]["value"] = "";
+
+        $result = exec("ping -c 1 ".$MiniOS->configs["hardware_test"]["network2"]["value"]." 2>&1 | grep ', 0% packet loss'");
+        $json_array["network2_result"] = $result;
+        if ($result != null)
+            $json_array["data"]["network2"]["status"] = "ok";
+        else
+            $json_array["data"]["network2"]["status"] = "error";
+
+        $json_array["data"]["network2"]["name"] = "network2";
+        $json_array["data"]["network2"]["index"] = 1;
+        $json_array["data"]["network2"]["descriptor"] = "network";
+        $json_array["data"]["network2"]["range"] = "";
+        $json_array["data"]["network2"]["value"] = "";
+
         $json_array["status"] = "ok";
         echo json_encode($json_array);
     }

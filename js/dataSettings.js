@@ -39,6 +39,7 @@ function send_ajax_data(json_data, success_function)
         success: function(data){
             //On ajax success do this
             console.info("ajax back infomations success.");
+            console.info(data);
 
             if (data["status"] == "ok"){
                 success_function(data);
@@ -240,6 +241,18 @@ $(function(){
             if (data["data"]["udisk"]["usb2"]["status"] == "ok") {
                 console.info(data["data"]["udisk"]["usb2"]["name"] + "_value"); 
                 $("#" + data["data"]["udisk"]["usb2"]["name"] + "_status").attr("src", "img/ok.png");
+            }
+
+            // network1
+            if (data["data"]["network1"]["status"] == "ok") {
+                console.info(data["data"]["network1"]["name"] + "_value"); 
+                $("#" + data["data"]["network1"]["name"] + "_status").attr("src", "img/ok.png");
+            }
+
+            // network2
+            if (data["data"]["network2"]["status"] == "ok") {
+                console.info(data["data"]["network2"]["name"] + "_value"); 
+                $("#" + data["data"]["network2"]["name"] + "_status").attr("src", "img/ok.png");
             }
         }
     );
