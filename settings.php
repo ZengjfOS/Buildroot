@@ -58,7 +58,7 @@
         $output = `bin/hardware_test`;
         $json_array = json_decode($output, true);
 
-        $result = exec("ping -c 1 ".$MiniOS->configs["hardware_test"]["network1"]["value"]." 2>&1 | grep ', 0% packet loss'");
+        $result = exec("ping -c 1 -W 1 ".$MiniOS->configs["hardware_test"]["network1"]["value"]." 2>&1 | grep ', 0% packet loss'");
         $json_array["network1_result"] = $result;
         if ($result != null)
             $json_array["data"]["network1"]["status"] = "ok";
@@ -71,7 +71,7 @@
         $json_array["data"]["network1"]["range"] = "";
         $json_array["data"]["network1"]["value"] = "";
 
-        $result = exec("ping -c 1 ".$MiniOS->configs["hardware_test"]["network2"]["value"]." 2>&1 | grep ', 0% packet loss'");
+        $result = exec("ping -c 1 -W 1 ".$MiniOS->configs["hardware_test"]["network2"]["value"]." 2>&1 | grep ', 0% packet loss'");
         $json_array["network2_result"] = $result;
         if ($result != null)
             $json_array["data"]["network2"]["status"] = "ok";
