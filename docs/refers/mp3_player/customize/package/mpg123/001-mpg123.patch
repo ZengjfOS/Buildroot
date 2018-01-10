@@ -1,0 +1,134 @@
+Index: mpg123-1.23.3/src/mpg123.c
+===================================================================
+--- dl.orig/mpg123-1.23.3/src/mpg123.c
++++ mpg123-1.23.3/src/mpg123.c
+@@ -44,6 +44,30 @@
+ 
+ #include "debug.h"
+ 
++//wiringPi declare start~~
++#include <stdio.h>
++#include <stdlib.h>
++#include <wiringPi.h>
++
++#define LCD_E 19
++#define LCD_RS 26
++#define LCD_D4 13
++#define LCD_D5 6
++#define LCD_D6 5
++#define LCD_D7 11
++
++void pulseEnable();
++void lcd_byte(char bits);
++void SetCmdMode();
++void SetChrMode();
++void lcd_text(char *s);
++void lcd_init();
++void lcd_clear();
++
++//wiringPi declare end~~
++
++
++
+ static void usage(int err);
+ static void want_usage(char* arg);
+ static void long_usage(int err);
+@@ -1014,6 +1038,11 @@ int main(int sys_argc, char ** sys_argv)
+ 	mpg123_getpar(mp, MPG123_RESYNC_LIMIT, &param.resync_limit, NULL);
+ 	mpg123_getpar(mp, MPG123_PREFRAMES, &param.preframes, NULL);
+ 
++ //init GPIO
++  lcd_init();
++  SetChrMode();
++
++
+ #ifdef OS2
+         _wildcard(&argc,&argv);
+ #endif
+@@ -1315,6 +1344,9 @@ int main(int sys_argc, char ** sys_argv)
+ 		if(param.term_ctrl) term_hint();
+ #endif
+ 
++      // lcd_clear
++      lcd_clear();
++      lcd_text(filename);
+ 
+ 			fprintf(stderr, "Playing MPEG stream %lu of %lu: %s ...\n", (unsigned long)pl.pos, (unsigned long)pl.fill, filename);
+ 			if(htd.icy_name.fill) fprintf(stderr, "ICY-NAME: %s\n", htd.icy_name.p);
+@@ -1642,3 +1674,76 @@ void continue_msg(const char *name)
+ {
+ 		fprintf(aux_out, "\n[%s] track %"SIZE_P" frame %"OFF_P"\n", name,  (size_p)pl.pos, (off_p)framenum);
+ }
++
++void pulseEnable()
++{
++		   digitalWrite(LCD_E, HIGH); 
++		   delay(0.5); //  1/2 microsecond pause - enable pulse must be > 450ns
++		   digitalWrite(LCD_E, LOW);
++}
++
++/*
++		  send a byte to the lcd in two nibbles
++		  before calling use SetChrMode or SetCmdMode to determine whether to send character or command
++*/
++void lcd_byte(char bits)
++{
++		  digitalWrite(LCD_D4,(bits & 0x10));
++		  digitalWrite(LCD_D5,(bits & 0x20));
++		  digitalWrite(LCD_D6,(bits & 0x40));
++		  digitalWrite(LCD_D7,(bits & 0x80));
++		  pulseEnable();
++		
++			digitalWrite(LCD_D4,(bits & 0x1));
++		  digitalWrite(LCD_D5,(bits & 0x2));
++		  digitalWrite(LCD_D6,(bits & 0x4));
++		  digitalWrite(LCD_D7,(bits & 0x8));
++		  pulseEnable();
++}
++
++void SetCmdMode()
++{
++		  digitalWrite(LCD_RS, 0); // set for commands
++}
++
++void SetChrMode()
++{
++		  digitalWrite(LCD_RS, 1); // set for characters
++}
++	
++void lcd_text(char *s)
++{
++		  while(*s)
++			   lcd_byte(*s++);
++}
++	
++void lcd_init()
++{
++		   wiringPiSetupGpio() ; // use BCIM numbering
++		   // set up pi pins for output
++		   pinMode(LCD_E,  OUTPUT);
++		   pinMode(LCD_RS, OUTPUT);
++		   pinMode(LCD_D4, OUTPUT);
++		   pinMode(LCD_D5, OUTPUT);
++		   pinMode(LCD_D6, OUTPUT);
++		   pinMode(LCD_D7, OUTPUT);
++		
++		   // initialise LCD
++		   SetCmdMode(); // set for commands
++		   lcd_byte(0x33); // full init
++		   lcd_byte(0x32); // 4 bit mode
++		   lcd_byte(0x28); // 2 line mode
++		   lcd_byte(0x0C); // display on, cursor off, blink off
++		   lcd_byte(0x01);  // clear screen
++		   delay(3);        // clear screen is slow!
++}
++
++void lcd_clear()
++{
++		   SetCmdMode(); // set for commands
++			 lcd_byte(0x01);  // clear screen
++			 delay(3);        // clear screen is slow!
++			 SetChrMode();
++}
++
++

@@ -1,0 +1,20 @@
+#!/bin/sh
+#
+# Initialize sound...
+# Author: Miloš Polakovič
+#
+
+case "$1" in
+  start)
+        echo "Starting sound..."
+        modprobe snd-aaci; alsactl init
+	modprobe snd_bcm2835
+        amixer -c 0 -- sset Master playback 100% unmute
+        amixer -c 0 -- sset Beep playback 100% unmute
+        ;;
+  *)
+        echo "Usage: $0 {start}"
+        exit 1
+esac
+
+exit $?

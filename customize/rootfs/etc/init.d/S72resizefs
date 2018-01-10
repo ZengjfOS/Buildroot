@@ -1,0 +1,109 @@
+#!/bin/sh
+
+do_expand_rootfs() {
+  # -h : FILE exists and is a symbolic link (same as -L)
+  if ! [ -h /dev/root ]; then
+    echo "/dev/root does not exist or is not a symlink. Don't know how to expand"
+    return 0
+  fi
+
+  # readlink用来找出符号链接所指向的位置。 
+  ROOT_PART=$(readlink /dev/root)
+  # 从变量$string的开头, 删除最短匹配$substring的子串
+  PART_NUM=${ROOT_PART#mmcblk0p}
+  if [ "$PART_NUM" = "$ROOT_PART" ]; then
+    echo "/dev/root is not an SD card. Don't know how to expand"
+    return 0
+  fi
+
+  LAST_PART_NUM=$(parted /dev/mmcblk0 -ms unit s p | tail -n 1 | cut -f 1 -d:)
+  if [ "$LAST_PART_NUM" != "$PART_NUM" ]; then
+    echo "/dev/root is not the last partition. Don't know how to expand" 
+    return 0
+  fi
+
+  # Get the starting offset of the root partition
+  # 获取文件系统分区起始位置
+  PART_START=$(parted /dev/mmcblk0 -ms unit s p | grep "^${PART_NUM}" | cut -f 2 -d:)
+  [ "$PART_START" ] || return 1
+  # Return value will likely be error for fdisk as it fails to reload the
+  # partition table because the root fs is mounted
+  fdisk -u /dev/mmcblk0 <<EOF
+p
+d
+n
+p
+$PART_NUM
+$PART_START
+
+p
+w
+EOF
+  ASK_TO_REBOOT=1
+
+  # now set up an init.d script
+cat <<\EOF > /etc/init.d/resize2fs_once
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          resize2fs_once
+# Required-Start:
+# Required-Stop:
+# Default-Start: 2 3 4 5 S
+# Default-Stop:
+# Short-Description: Resize the root filesystem to fill partition
+# Description:
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting resize2fs_once" &&
+    resize2fs /dev/root &&                       # 真正调整大小的地方
+    rm /etc/init.d/resize2fs_once &&             # 删除文件，表明该文件只能被运行一次
+    df -h
+    ;;
+  *)
+    echo "Usage: $0 start" >&2
+    exit 3
+    ;;
+esac
+EOF
+  chmod +x /etc/init.d/resize2fs_once            # 给出下次运行的权限
+  echo "Root partition has been resized.\nThe filesystem will be enlarged upon the next reboot"
+}
+
+DESC="Resize File System."
+
+case "$1" in
+  start)
+    echo "Starting $DESC: "
+
+    if [ -x /etc/init.d/resize2fs_once ]; then
+      /etc/init.d/resize2fs_once start
+    
+      echo "resize file system over." > /etc/resizefs
+      exit 0
+    fi
+    
+    if [ ! -f "/etc/resizefs" ]; then
+      do_expand_rootfs
+      reboot
+    fi
+
+    ;;
+  stop)
+    echo "Stop $DESC: "
+    ;;
+  restart|force-reload)
+    echo "Restarting $DESC: "
+    $0 stop
+    sleep 1
+    $0 start
+    echo ""
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

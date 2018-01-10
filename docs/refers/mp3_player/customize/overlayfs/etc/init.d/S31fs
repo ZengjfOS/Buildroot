@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Load filesystem modules
+# Author: Miloš Polakovič
+#
+
+case "$1" in
+  start)
+        echo "Loading filesystem modules..."
+        modprobe vfat
+        modprobe nls_iso8859_1
+        modprobe nls_cp437
+        ;;
+  *)
+        echo "Usage: $0 {start}"
+        exit 1
+esac
+
+exit $?

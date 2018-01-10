@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Initialize USB...
+# Author: Miloš Polakovič
+#
+
+case "$1" in
+  start)
+        echo "Loading USB kernel modules..."
+        modprobe usb_storage
+        modprobe ohci-pci
+        echo "Available devices: "; lsusb
+        ;;
+  *)
+        echo "Usage: $0 {start}"
+        exit 1
+esac
+
+exit $?

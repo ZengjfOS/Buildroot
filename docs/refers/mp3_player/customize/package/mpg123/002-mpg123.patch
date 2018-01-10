@@ -1,0 +1,13 @@
+Index: dl/mpg123-1.23.3/configure
+===================================================================
+--- dl.orig/mpg123-1.23.3/configure
++++ mpg123-1.23.3/configure
+@@ -16677,7 +16677,7 @@ if test "x$ac_cv_lib_m_sqrt" = xyes; the
+ #define HAVE_LIBM 1
+ _ACEOF
+ 
+-  LIBS="-lm $LIBS"
++  LIBS="-lm -lpthread -lwiringPi $LIBS"
+ 
+ fi
+ 

@@ -1,0 +1,37 @@
+#! /bin/sh
+
+set -e
+
+DESC="adbd"
+NAME=adbd
+DAEMON=/usr/sbin/$NAME
+
+case "$1" in
+  start)
+    printf "Starting $DESC: "
+    modprobe g_ffs idVendor=0x18d1 idProduct=0x4e42 iSerialNumber="AplexOS"
+    mkdir -p /dev/usb-ffs/adb
+    mount -t functionfs adb /dev/usb-ffs/adb -o uid=0,gid=0
+
+    start-stop-daemon -S -b -x $NAME
+    echo "OK"
+    ;;
+  stop)
+    printf "Stopping $DESC: "
+    start-stop-daemon -K -x $NAME
+    echo "OK"
+    ;;
+  restart|force-reload)
+    echo "Restarting $DESC: "
+    $0 stop
+    sleep 1
+    $0 start
+    echo ""
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0

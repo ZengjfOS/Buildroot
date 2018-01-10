@@ -1,0 +1,5 @@
+config BR2_PACKAGE_WIRINGPI
+	bool "wiring"
+	help
+		This is a comment that explains what wiringPi is.
+
