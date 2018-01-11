@@ -15,6 +15,7 @@ dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
 
 ## Compile
 
+* `make clean-buildroot` 
 * `make configs`
 * `make`
 
@@ -22,3 +23,32 @@ dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
 
 * [docs/README.md](docs/README.md)
 
+## Compile Kernel
+
+```bash
+#!/bin/bash
+
+export CROSS_COMPILE=arm-buildroot-linux-gnueabi-
+export ARCH=arm
+
+make imx_v7_defconfig
+
+make -j4 LOADADDR=0x10008000 zImage
+make -j4 LOADADDR=0x10008000 dtbs
+
+make -j4 LOADADDR=0x10008000 modules
+make -j4 LOADADDR=0x10008000 modules_install INSTALL_MOD_PATH=`pwd`/_install_lib
+```
+
+## Compile U-Boot
+
+```bash
+#!/bin/bash
+
+export CROSS_COMPILE=arm-buildroot-linux-gnueabi-
+export ARCH=arm
+
+make mx6dlsabresd_defconfig
+
+make -j4
+```
