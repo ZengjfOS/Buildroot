@@ -91,7 +91,7 @@
 # [End of example]
 
 config BR2_SKIP_LEGACY
-	bool
+	bool 
 	option env="SKIP_LEGACY"
 
 if !BR2_SKIP_LEGACY

@@ -1,0 +1,8 @@
+config BR2_PACKAGE_PYTHON_WEBSOCKET_SERVER
+	bool "python-websocket-server"
+    depends on BR2_PACKAGE_PYTHON3
+	help
+	  A simple fully working websocket-server in Python with no external dependencies
+
+	  https://github.com/Pithikos/python-websocket-server
+

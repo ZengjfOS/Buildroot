@@ -1,0 +1,8 @@
+config BR2_PACKAGE_CANOPENSOCKET
+	bool "CANopenSocket"
+    select BR2_PACKAGE_CANOPENNODE
+	help
+	  CANopen implementation for Linux SocketCAN with master command interface.
+
+	  https://github.com/CANopenNode/CANopenSocket
+

@@ -18,9 +18,9 @@ dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
 1. `make`  
   You need to execute `make config` at first.
 2. `make config`  
-  Use default config: ZengjfOS_defconfig
+  Use default config: freescale_imx6dlsabresd_defconfig
 3. `make savedefconfig`  
-  Save default config: ZengjfOS_defconfig
+  Save default config: freescale_imx6dlsabresd_defconfig
 4. `make clean`
 5. `make help`
 
@@ -29,6 +29,8 @@ dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
 * [docs/README.md](docs/README.md)
 
 ## Compile Kernel
+
+Download: https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP
 
 ```bash
 #!/bin/bash
@@ -46,6 +48,8 @@ make -j4 LOADADDR=0x10008000 modules_install INSTALL_MOD_PATH=`pwd`/_install_lib
 ```
 
 ## Compile U-Boot
+
+Download: https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP
 
 ```bash
 #!/bin/bash
