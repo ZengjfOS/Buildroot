@@ -13,11 +13,16 @@ dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
   * [Makefile](https://github.com/hugh712/mp3_player/blob/master/Makefile)
 * [buildroot-2017.02.3](docs/refers/buildroot-2017.02.3/README.md)
 
-## Compile
+## USAGE:
 
-* `make clean-buildroot` 
-* `make configs`
-* `make`
+1. `make`  
+  You need to execute `make config` at first.
+2. `make config`  
+  Use default config: ZengjfOS_defconfig
+3. `make savedefconfig`  
+  Save default config: ZengjfOS_defconfig
+4. `make clean`
+5. `make help`
 
 ## Buildroot Hacking Docs
 
