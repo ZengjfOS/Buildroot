@@ -1,0 +1,180 @@
+include/config/auto.conf: include/common.h include/linux/kconfig.h \
+ include/generated/autoconf.h include/config.h include/config_defaults.h \
+ include/config_uncmd_spl.h include/configs/mx6sabresd.h \
+ include/configs/mx6sabre_common.h include/configs/mx6_common.h \
+ include/linux/sizes.h arch/arm/include/asm/arch/imx-regs.h \
+ arch/arm/include/asm/imx-common/regs-lcdif.h \
+ arch/arm/include/asm/imx-common/regs-common.h include/linux/types.h \
+ include/linux/posix_types.h include/linux/stddef.h \
+ arch/arm/include/asm/posix_types.h arch/arm/include/asm/types.h \
+ /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdbool.h \
+ arch/arm/include/asm/imx-common/gpio.h arch/arm/include/asm/config.h \
+ include/config_fallbacks.h include/asm-offsets.h include/linux/bitops.h \
+ include/linux/compiler.h include/linux/compiler-gcc.h \
+ arch/arm/include/asm/bitops.h arch/arm/include/asm/proc-armv/system.h \
+ include/asm-generic/bitops/__fls.h include/asm-generic/bitops/__ffs.h \
+ include/asm-generic/bitops/fls.h include/asm-generic/bitops/fls64.h \
+ include/linux/string.h arch/arm/include/asm/string.h \
+ include/linux/linux_string.h include/linux/stringify.h \
+ arch/arm/include/asm/ptrace.h arch/arm/include/asm/proc-armv/ptrace.h \
+ /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdarg.h \
+ include/linux/kernel.h include/part.h include/ide.h include/common.h \
+ include/flash.h include/image.h include/compiler.h \
+ /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stddef.h \
+ arch/arm/include/asm/byteorder.h include/linux/byteorder/little_endian.h \
+ include/linux/byteorder/swab.h include/linux/byteorder/generic.h \
+ include/lmb.h arch/arm/include/asm/u-boot.h include/asm-generic/u-boot.h \
+ include/command.h include/linker_lists.h \
+ arch/arm/include/asm/global_data.h include/asm-generic/global_data.h \
+ include/membuff.h include/linux/list.h include/linux/poison.h \
+ include/display_options.h arch/arm/include/asm/mach-types.h \
+ arch/arm/include/asm/setup.h arch/arm/include/asm/u-boot-arm.h \
+ include/uuid.h include/vsprintf.h include/u-boot/crc.h include/net.h \
+ arch/arm/include/asm/cache.h arch/arm/include/asm/system.h \
+ include/bootstage.h include/environment.h include/mmc.h
+
+include/linux/kconfig.h:
+
+include/generated/autoconf.h:
+
+include/config.h:
+
+include/config_defaults.h:
+
+include/config_uncmd_spl.h:
+
+include/configs/mx6sabresd.h:
+
+include/configs/mx6sabre_common.h:
+
+include/configs/mx6_common.h:
+
+include/linux/sizes.h:
+
+arch/arm/include/asm/arch/imx-regs.h:
+
+arch/arm/include/asm/imx-common/regs-lcdif.h:
+
+arch/arm/include/asm/imx-common/regs-common.h:
+
+include/linux/types.h:
+
+include/linux/posix_types.h:
+
+include/linux/stddef.h:
+
+arch/arm/include/asm/posix_types.h:
+
+arch/arm/include/asm/types.h:
+
+/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdbool.h:
+
+arch/arm/include/asm/imx-common/gpio.h:
+
+arch/arm/include/asm/config.h:
+
+include/config_fallbacks.h:
+
+include/asm-offsets.h:
+
+include/linux/bitops.h:
+
+include/linux/compiler.h:
+
+include/linux/compiler-gcc.h:
+
+arch/arm/include/asm/bitops.h:
+
+arch/arm/include/asm/proc-armv/system.h:
+
+include/asm-generic/bitops/__fls.h:
+
+include/asm-generic/bitops/__ffs.h:
+
+include/asm-generic/bitops/fls.h:
+
+include/asm-generic/bitops/fls64.h:
+
+include/linux/string.h:
+
+arch/arm/include/asm/string.h:
+
+include/linux/linux_string.h:
+
+include/linux/stringify.h:
+
+arch/arm/include/asm/ptrace.h:
+
+arch/arm/include/asm/proc-armv/ptrace.h:
+
+/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdarg.h:
+
+include/linux/kernel.h:
+
+include/part.h:
+
+include/ide.h:
+
+include/common.h:
+
+include/flash.h:
+
+include/image.h:
+
+include/compiler.h:
+
+/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stddef.h:
+
+arch/arm/include/asm/byteorder.h:
+
+include/linux/byteorder/little_endian.h:
+
+include/linux/byteorder/swab.h:
+
+include/linux/byteorder/generic.h:
+
+include/lmb.h:
+
+arch/arm/include/asm/u-boot.h:
+
+include/asm-generic/u-boot.h:
+
+include/command.h:
+
+include/linker_lists.h:
+
+arch/arm/include/asm/global_data.h:
+
+include/asm-generic/global_data.h:
+
+include/membuff.h:
+
+include/linux/list.h:
+
+include/linux/poison.h:
+
+include/display_options.h:
+
+arch/arm/include/asm/mach-types.h:
+
+arch/arm/include/asm/setup.h:
+
+arch/arm/include/asm/u-boot-arm.h:
+
+include/uuid.h:
+
+include/vsprintf.h:
+
+include/u-boot/crc.h:
+
+include/net.h:
+
+arch/arm/include/asm/cache.h:
+
+arch/arm/include/asm/system.h:
+
+include/bootstage.h:
+
+include/environment.h:
+
+include/mmc.h:
