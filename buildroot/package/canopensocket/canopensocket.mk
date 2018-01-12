@@ -23,15 +23,15 @@ endef
 define CANOPENSOCKET_BUILD_CMDS
     $(TARGET_MAKE_ENV) $(MAKE) \
         -C $(@D)/canopend all
-    cp -v $(@D)/canopend/app/canopend $(TARGET_DIR)
+    cp -v $(@D)/canopend/app/canopend $(TARGET_DIR)/usr/bin
 
     $(TARGET_MAKE_ENV) $(MAKE) \
         -C $(@D)/canopencomm all
-    cp -v $(@D)/canopencomm/canopencomm $(TARGET_DIR)
+    cp -v $(@D)/canopencomm/canopencomm $(TARGET_DIR)/usr/bin
 
     $(TARGET_MAKE_ENV) $(MAKE) \
         -C $(@D)/canopencgi all
-    cp -v $(@D)/canopencgi/canopen.cgi $(TARGET_DIR)
+    cp -v $(@D)/canopencgi/canopen.cgi $(TARGET_DIR)/usr/bin
 endef
 
 define CANOPENSOCKET_INSTALL_TARGET_CMDS
