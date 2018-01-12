@@ -1,0 +1,12 @@
+config BR2_PACKAGE_PYTHON_OPCUA
+	bool "python-opcua"
+    depends on BR2_PACKAGE_PYTHON3
+    select BR2_PACKAGE_PYTHON_DATEUTIL
+    select BR2_PACKAGE_PYTHON_PYTZ
+    select BR2_PACKAGE_PYTHON_LXML
+    select BR2_PACKAGE_PYTHON_CRYPTOGRAPHY
+	help
+	  Pure Python OPC UA / IEC 62541 Client and Server Python 2, 3 and pypy .
+
+	  http://github.com/FreeOpcUa/python-opcua
+
