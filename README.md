@@ -4,7 +4,7 @@
 
 **在编译系统的时候遇到有些软件包下载特别慢，可以用浏览器下载，然后放在buildroot根目录的dl目录里面，缩短下载时间。**
 
-dl文件夹包下载：https://pan.baidu.com/s/1jKh8tka
+dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 
 ## Refers
 
