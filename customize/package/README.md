@@ -8,6 +8,7 @@
 ## FreeOpcUa
 
 * https://github.com/FreeOpcUa/python-opcua
+* 使用文档参考：https://github.com/ZengjfOS/OpcUaDocs
 
 ## CANopenSocket
 
