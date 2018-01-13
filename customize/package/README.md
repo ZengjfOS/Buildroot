@@ -9,3 +9,8 @@
 
 * https://github.com/FreeOpcUa/python-opcua
 
+## CANopenSocket
+
+* https://github.com/CANopenNode/CANopenSocket
+* 移植参考：[17.5.1. generic-package tutorial](https://buildroot.org/downloads/manual/manual.html#generic-package-tutorial)
+

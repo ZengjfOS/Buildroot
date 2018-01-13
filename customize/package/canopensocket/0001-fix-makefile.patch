@@ -1,0 +1,36 @@
+diff --git a/canopencgi/Makefile b/canopencgi/Makefile
+index 067c87b..a4a1938 100644
+--- a/canopencgi/Makefile
++++ b/canopencgi/Makefile
+@@ -14,7 +14,6 @@ SOURCES =       $(APPL_SRC)/CANopenCGI.c
+ 
+ 
+ OBJS = $(SOURCES:%.c=%.o)
+-CC ?= gcc
+ CFLAGS = -Wall -g $(INCLUDE_DIRS)
+ LDFLAGS =
+ 
+diff --git a/canopencomm/Makefile b/canopencomm/Makefile
+index 5f98846..48a285c 100644
+--- a/canopencomm/Makefile
++++ b/canopencomm/Makefile
+@@ -14,7 +14,6 @@ SOURCES =       $(APPL_SRC)/CANopenCommand.c
+ 
+ 
+ OBJS = $(SOURCES:%.c=%.o)
+-CC ?= gcc
+ CFLAGS = -Wall -g $(INCLUDE_DIRS)
+ LDFLAGS =
+ 
+diff --git a/canopend/Makefile b/canopend/Makefile
+index 2d595d6..14b01f7 100644
+--- a/canopend/Makefile
++++ b/canopend/Makefile
+@@ -53,7 +53,6 @@ SOURCES =       $(STACKDRV_SRC)/CO_driver.c         \
+ 
+ 
+ OBJS = $(SOURCES:%.c=%.o)
+-CC ?= gcc
+ CFLAGS = -Wall -g $(INCLUDE_DIRS)
+ LDFLAGS = -lrt -pthread
+ 
