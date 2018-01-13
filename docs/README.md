@@ -16,6 +16,6 @@
 ## Buildroot Patch
 
 使用git管理源代码，生成git Patch，直接用`git diff > pach_name_with_number_at_start.patch`，放在package目录中，不用指定，系统会自动打补丁：  
-* [0001-fix-makefile.patch](customize/package/canopensocket/0001-fix-makefile.patch)
+* [0001-fix-makefile.patch](../customize/package/canopensocket/0001-fix-makefile.patch)
 
 
