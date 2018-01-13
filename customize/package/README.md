@@ -14,3 +14,6 @@
 * https://github.com/CANopenNode/CANopenSocket
 * 移植参考：[17.5.1. generic-package tutorial](https://buildroot.org/downloads/manual/manual.html#generic-package-tutorial)
 
+## python-websocket-server
+
+* https://github.com/Pithikos/python-websocket-server
