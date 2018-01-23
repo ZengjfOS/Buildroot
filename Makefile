@@ -1,5 +1,10 @@
 CONFIG_FILE=freescale_imx6dlsabresd_defconfig
-WEBPAGE_HOME="buildroot/output/target/var/www/"
+
+WEBPAGE_HOME=buildroot/output/target/var/www/
+WEBPAGE_BACKEND_HOME=buildroot/output/target/var/www/bin/python
+GITHUB_REPO=https://github.com/ZengjfOS/Buildroot
+WEBPAGE_BRANCH=7112S_WebTest_Page
+WEBPAGE_BACKEND_BRANCH=7112S_WebTest_Backend
 
 default: config
 	sudo apt-get install texinfo
@@ -17,12 +22,12 @@ clean:
 	cd buildroot && make clean
 
 webpage:
-ifneq ($(wildcard buildroot/output/target/var/www/bin/python),)
-	cd $(WEBPAGE_HOME)&& git pull https://github.com/ZengjfOS/Buildroot 7112S_WebTest_Page:7112S_WebTest_Page; 
-	cd $(WEBPAGE_HOME)/bin/python && git pull https://github.com/ZengjfOS/Buildroot 7112S_WebTest_Backend:7112S_WebTest_Backend;
+ifneq ($(wildcard $(WEBPAGE_BACKEND_HOME)),)
+	git -C $(WEBPAGE_HOME) pull $(GITHUB_REPO) $(WEBPAGE_BRANCH):$(WEBPAGE_BRANCH)
+	git -C $(WEBPAGE_BACKEND_HOME) pull $(GITHUB_REPO) $(WEBPAGE_BACKEND_BRANCH):$(WEBPAGE_BACKEND_BRANCH)
 else
-	git clone https://github.com/ZengjfOS/Buildroot --branch 7112S_WebTest_Page --single-branch $(WEBPAGE_HOME);
-	git clone https://github.com/ZengjfOS/Buildroot --branch 7112S_WebTest_Backend --single-branch $(WEBPAGE_HOME)/bin/python;
+	git clone $(GITHUB_REPO) --branch $(WEBPAGE_BRANCH) --single-branch $(WEBPAGE_HOME);
+	git clone $(GITHUB_REPO) --branch $(WEBPAGE_BACKEND_BRANCH) --single-branch $(WEBPAGE_BACKEND_HOME);
 endif
 
 help:
@@ -33,4 +38,6 @@ help:
 	@echo "    3. make savedefconfig"
 	@echo "        save default config: $(CONFIG_FILE)"
 	@echo "    4. make clean"
-	@echo "    5. make help"
+	@echo "    5. make webpage"
+	@echo "        clone or pull webpage test from GitHub"
+	@echo "    6. make help"
