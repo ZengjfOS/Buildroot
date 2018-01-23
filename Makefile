@@ -1,6 +1,7 @@
 CONFIG_FILE=freescale_imx6dlsabresd_defconfig
 
 default:
+	sudo apt-get install texinfo
 	cd buildroot && make -j4
 
 config:
