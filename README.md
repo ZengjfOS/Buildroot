@@ -16,16 +16,16 @@
 
 ## System Config Analysis
 
-```JSON
+```
 {
     /**
      * 导航栏配置代码: cat navigation.php
      * ...
      * foreach ($MiniOS->configs["navigation"] as $key => $value) {
      *     if ($key == "welcome") {
-     *     echo "<li class='toctree-l3'><a href='".$value["link"]."'>".$value["content"]."</a></li>\n";
+     *         echo "<li class='toctree-l3'><a href='".$value["link"]."'>".$value["content"]."</a></li>\n";
      *     } else {
-     *     echo "<li><a class='toctree-l4' href='".$value["link"]."'>".$value["content"]."</a></li>\n";
+     *         echo "<li><a class='toctree-l4' href='".$value["link"]."'>".$value["content"]."</a></li>\n";
      *     }
      * }
      * ...
@@ -60,9 +60,9 @@
      *     echo "  <td>".$ret."</td>\n";
      *     echo "  <td>";
      *     if ($ret != null)
-     * 	    echo "   <img src='img/ok.png' width='30' height='30'/>";
+     * 	        echo "   <img src='img/ok.png' width='30' height='30'/>";
      *     else
-     * 	    echo "   <img src='img/error.png' width='30' height='30'/>";
+     * 	        echo "   <img src='img/error.png' width='30' height='30'/>";
      *     echo "  </td>";
      *     echo "</tr>";
      * }
