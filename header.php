@@ -6,7 +6,6 @@
     <meta name="author" content="aplexos">
     <link rel="shortcut icon" href="./img/favicon.ico">
     <title>Home - ARM-Settings</title>
-    <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./css/theme.css" type="text/css" />
     <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
     <link rel="stylesheet" href="./css/highlight.css">

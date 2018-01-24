@@ -88,12 +88,6 @@
                 "armv7l" : "ifconfig | grep eth0 | awk -F ' ' '{print $5}'",
                 "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
             }
-        },
-        "MAC2" : {
-            "cmd" : {
-                "armv7l" : "ifconfig | grep eth1 | awk -F ' ' '{print $5}'",
-                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
-            }
         }
     },
     "network" : {
@@ -143,79 +137,79 @@
         "network1" : {
             "index" : 1,
             "descriptor" : "eth0",
-            "range" : "192.168.2.10",
-            "value" : "192.168.2.10",
-            "status" : "error"
-        },
-        "network2" : {
-            "index" : 2,
-            "descriptor" : "eth1",
-            "range" : "192.168.3.200",
-            "value" : "192.168.3.200",
+            "range" : "192.168.1.20",
+            "value" : "192.168.1.20",
             "status" : "error"
         },
         "rtc" : {
-            "index" : 3,
+            "index" : 2,
+            "shell" : "hwclock -r > /dev/null && echo $?",
             "descriptor" : "i2c",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "keyboard" : {
-            "index" : 4,
+            "index" : 3,
+            "shell" : "grep 'kbd event' /proc/bus/input/devices",
             "descriptor" : "usb",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "mouse" : {
-            "index" : 5,
+            "index" : 4,
+            "shell" : "grep -E 'Mouse|mouse|mice|Mice' /proc/bus/input/devices | grep 'N:'",
             "descriptor" : "usb",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "DB9_RS232" : {
-            "index" : 6,
+            "index" : 5,
+            "shell" : "uartRS /dev/ttymxc2 9600 4 '0123456789' | grep 0123456789",
             "descriptor" : "air quality",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
-        "CON3_USB" : {
-            "index" : 7,
-            "descriptor" : "U Disk",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "CON3_I2C" : {
-            "index" : 8,
+        "CON2_I2C" : {
+            "index" : 6,
             "descriptor" : "temperature",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "MIO_8_GPIO" : {
-            "index" : 9,
+            "index" : 7,
             "descriptor" : "gpio",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "MIO_USB" : {
-            "index" : 10,
+            "index" : 8,
+            "shell" : "mount | grep '/mnt/usb/sd'",
             "descriptor" : "U disk",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
         "EEPROM" : {
-            "index" : 11,
+            "index" : 9,
+            "shell" : "dmesg | grep '24c02 EEPROM, writable, 1 bytes/write'",
             "descriptor" : "i2c",
             "range" : "",
             "value" : "",
             "status_tag_id" :"cn1_i2c",
+            "status" : "error"
+        },
+        "SDCard" : {
+            "index" : 10,
+            "shell" : "mount | grep '/mnt/sdcard/mmcblk2'",
+            "descriptor" : "sd card",
+            "range" : "",
+            "value" : "",
             "status" : "error"
         }
     }
