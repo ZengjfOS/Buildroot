@@ -1,6 +1,6 @@
 # Hardware test data protocal
 
-# Hardware Test
+## Hardware Test
 
 * ajax request json data for test
   ```json

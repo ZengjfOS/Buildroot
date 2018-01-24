@@ -45,7 +45,7 @@
         },
         "eMMC" : {
             "cmd" : {
-                "armv7l" : "fdisk -l | grep mmcblk0: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
+                "armv7l" : "fdisk -l | grep mmcblk3: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
                 "x86_64" : "fdisk -l | grep /dev/sda | awk -F ':' '{print $2}' | awk -F ',' '{print $1}' | head -n 1 | xargs"
             },
             "compare" : {
