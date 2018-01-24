@@ -1,0 +1,11 @@
+diff --git a/Makefile b/Makefile
+index 897dc48..c7698e3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ all:
+-	gcc jni/uartRS.c -o uartRS -lpthread
++	$(CC) jni/uartRS.c -o uartRS -lpthread
+ 
+ clean:
+ 	rm uartRS

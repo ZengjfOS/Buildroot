@@ -1,0 +1,7 @@
+config BR2_PACKAGE_UARTRS
+	bool "UartRS"
+	help
+	  UartRS is a tool for UART port test.
+
+	  https://github.com/ZengjfOS/UartRS
+
