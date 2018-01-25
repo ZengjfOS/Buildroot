@@ -62,75 +62,20 @@
         $output = `bin/hardware_test`;
         $json_array = json_decode($output, true);
 
-        $result = exec("ping -c 1 -W 1 ".$MiniOS->configs["hardware_test"]["network1"]["value"]." 2>&1 | grep ', 0% packet loss'");
-        $json_array["network1_result"] = $result;
-        if ($result != null)
-            $json_array["data"]["network1"]["status"] = "ok";
-        else
-            $json_array["data"]["network1"]["status"] = "error";
-
-        $json_array["data"]["network1"]["name"] = "network1";
-        $json_array["data"]["network1"]["index"] = 1;
-        $json_array["data"]["network1"]["descriptor"] = "network";
-        $json_array["data"]["network1"]["range"] = "";
-        $json_array["data"]["network1"]["value"] = "";
-
-        $result = exec($MiniOS->configs["hardware_test"]["rtc"]["shell"]);
-        $json_array["data"]["rtc"]["result"] = $result;
-        if ($result == "0")
-            $json_array["data"]["rtc"]["status"] = "ok";
-        else
-            $json_array["data"]["rtc"]["status"] = "error";
-        $json_array["data"]["rtc"]["name"] = "rtc";
-
-        $result = exec($MiniOS->configs["hardware_test"]["keyboard"]["shell"]);
-        $json_array["data"]["input"]["keyboard"]["result"] = $result;
-        if ($result != null)
-            $json_array["data"]["input"]["keyboard"]["status"] = "ok";
-        else
-            $json_array["data"]["input"]["keyboard"]["status"] = "error";
-        $json_array["data"]["input"]["keyboard"]["name"] = "keyboard";
-
-        $result = exec($MiniOS->configs["hardware_test"]["mouse"]["shell"]);
-        $json_array["data"]["input"]["mouse"]["result"] = $result;
-        if ($result != null)
-            $json_array["data"]["input"]["mouse"]["status"] = "ok";
-        else
-            $json_array["data"]["input"]["mouse"]["status"] = "error";
-        $json_array["data"]["input"]["mouse"]["name"] = "mouse";
-
-        $result = exec($MiniOS->configs["hardware_test"]["MIO_USB"]["shell"]);
-        $json_array["data"]["udisk"]["result"] = $result;
-        if ($result != null)
-            $json_array["data"]["udisk"]["status"] = "ok";
-        else
-            $json_array["data"]["udisk"]["status"] = "error";
-        $json_array["data"]["udisk"]["name"] = "MIO_USB";
-
-        $result = exec($MiniOS->configs["hardware_test"]["EEPROM"]["shell"]);
-        $json_array["data"]["eeprom"]["result"] = $result;
-        if ($result != null)
-            $json_array["data"]["eeprom"]["status"] = "ok";
-        else
-            $json_array["data"]["eeprom"]["status"] = "error";
-        $json_array["data"]["eeprom"]["name"] = "EEPROM";
-
-        $result = exec($MiniOS->configs["hardware_test"]["SDCard"]["shell"]);
-        $json_array["data"]["SDCard"]["result"] = $result;
-        if ($result != null)
-            $json_array["data"]["SDCard"]["status"] = "ok";
-        else
-            $json_array["data"]["SDCard"]["status"] = "error";
-        $json_array["data"]["SDCard"]["name"] = "SDCard";
-
-        $result = exec($MiniOS->configs["hardware_test"]["DB9_RS232"]["shell"]);
-        $json_array["data"]["DB9_RS232"]["result"] = $result;
-        $json_array["data"]["DB9_RS232"]["value"] = $result;
-        if ($result != null)
-            $json_array["data"]["DB9_RS232"]["status"] = "ok";
-        else
-            $json_array["data"]["DB9_RS232"]["status"] = "error";
-        $json_array["data"]["DB9_RS232"]["name"] = "DB9_RS232";
+        $test_items = $MiniOS->configs["hardware_test"];
+        $test_items_sections = $MiniOS->get_config_sections($test_items);
+        foreach ($test_items_sections as $item) {
+            if (isset($test_items[$item]["shell"])) {
+                $result = exec($test_items[$item]["shell"]);
+                $json_array["data"][$item]["result"] = $result;
+                if ((isset($test_items[$item]["ret"]) && ($result == $test_items[$item]["ret"])) ||
+                        (! isset( $test_items[$item]["ret"]) && ($result != null))) {
+                    $json_array["data"][$item]["status"] = "ok";
+                } else {
+                    $json_array["data"][$item]["status"] = "error";
+                }
+            }
+        }
 
         $json_array["status"] = "ok";
         echo json_encode($json_array);

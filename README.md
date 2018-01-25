@@ -1,5 +1,9 @@
 # MiniOS Web Page
 
+该自动化测试框架，只需要配置[configs/system_config.json](configs/system_config.json)文件，无需修改任何其他的内容。
+
+![img/HomePage.png](img/HomePage.png)
+
 ## php file include 
 
 * index.php
@@ -17,72 +21,7 @@
 
 ## Config Parser
 
-cat functions.php
-
-```
-<?php
-
-// author: zengjf
-// date  : Tue Aug  1 12:28:41 CST 2017
-
-class MiniOS_context {
-
-    // file path for json configure
-    public $config_file_path = "configs/system_config.json";
-
-    // json data format
-    public $configs = null;
-
-    // 获取系统类型，X86，ARM
-    public $system_type = "Linux";
-
-    public function __construct() {
-
-        // parse configure to json data
-        $this->configs = json_decode(file_get_contents($this->config_file_path), true);
-
-        // get running system type
-        $this->system_type = exec ("uname -m");
-    }
-
-    public function get_configs() {
-        if($this->configs==null)
-            $this->configs = json_decode(file_get_contents($this->config_file_path), true);
-
-        return $this->configs;
-    }
-
-    // how to use:
-    //    print_r($MiniOS->get_config_section_value("SystemInfo"));
-    public function get_config_section_value($key, $configs = null) {
-        if ($configs == null) {
-            return $this->configs[$key];
-        } else {
-            return $configs[$key];
-        }
-    }
-
-    // get all config sections
-    public function get_config_sections($key, $configs = null) {
-        $sections = array();
-
-        if ($configs == null) {
-            foreach ($this->configs as $section => $section_value){
-                $sections[] = $section;
-            }
-        } else {
-            foreach ($configs as $section => $section_value){
-                $sections[] = $section;
-            }
-        }
-
-        print_r($sections);
-    }
-}
-
-$MiniOS = new MiniOS_context;
-
-?>
+[functions.php](functions.php)
 ```
 
 ## System Config Analysis
@@ -110,18 +49,7 @@ $MiniOS = new MiniOS_context;
             "link" : "#base-infomation", 
             "content" : "Base Infomation"
         },
-        "network" : {
-            "link" : "#network",
-            "content" : "Network"
-        },
-        "data_and_time" : {
-            "link" : "#dateAndTime",
-            "content" : "Date & Time"
-        },
-        "hardware_test" : {
-            "link" : "#hardware-test",
-            "content" : "Hardware Test"
-        }
+        [...](省略)
     },
     /**
      * foreach ($MiniOS->configs["system_info"] as $key => $value) {
@@ -160,197 +88,67 @@ $MiniOS = new MiniOS_context;
                 "x86_64" : ""
             }
         },
-        "eMMC" : {
-            "cmd" : {
-                "armv7l" : "fdisk -l | grep mmcblk3: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
-                "x86_64" : "fdisk -l | grep /dev/sda | awk -F ':' '{print $2}' | awk -F ',' '{print $1}' | head -n 1 | xargs"
-            },
-            "compare" : {
-                "armv7l" : "",
-                "x86_64" : ""
-            }
-        },
-        "eMMC_Available" : {
-            "cmd" : {
-                "armv7l" : "df -h | grep /dev/root | awk -F ' ' '{print $4}'",
-                "x86_64" : ""
-            },
-            "compare" : {
-                "armv7l" : "",
-                "x86_64" : ""
-            }
-        },
-        "Operating_System_Type" : {
-            "cmd" : {
-                "armv7l" : "uname",
-                "x86_64" : "uname"
-            },
-            "compare" : {
-                "armv7l" : "",
-                "x86_64" : ""
-            }
-        },
-        "Linux_Version" : {
-            "cmd" : {
-                "armv7l" : "uname -a | awk -F ' ' '{print $3}'",
-                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
-            },
-            "compare" : {
-                "armv7l" : "",
-                "x86_64" : "4.8.0-54-generic"
-            }
-        },
-        "MAC1" : {
-            "cmd" : {
-                "armv7l" : "ifconfig | grep eth0 | awk -F ' ' '{print $5}'",
-                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
-            }
-        },
-        "MAC2" : {
-            "cmd" : {
-                "armv7l" : "ifconfig | grep eth1 | awk -F ' ' '{print $5}'",
-                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
-            }
-        }
+        [...](省略)
     },
-    "network" : {
-        "dhcp" : {
-            "check_mode" : {
-                "armv7l" : "grep 'iface eth0 inet dhcp' /etc/network/interfaces",
-                "x86_64" : ""
-            }
-        },
-        "static" : {
-            "check_mode" : {
-                "armv7l" : "grep 'iface eth0 inet static' /etc/network/interfaces",
-                "x86_64" : ""
-            },
-            "ip" : {
-                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}'",
-                "x86_64" : ""
-            },
-            "netmask" : {
-                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $4}' | awk -F ':' '{print $2}'",
-                "x86_64" : ""
-            },
-            "broadcast" : {
-                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $3}' | awk -F ':' '{print $2}'",
-                "x86_64" : ""
-            },
-            "gateway" : {
-                "armv7l" : "route -n | grep UG | head -n  1 | awk -F ' ' '{print $2}'",
-                "x86_64" : "route -n | grep UG | head -n  1 | awk -F ' ' '{print $2}'"
-            }
-        },
-        "ping" : {
-            "ip" : "127.0.0.1"
-        }
-    },
-    "date_and_time" : {
-        "date" : {
-            "armv7l" : "date '+%Y-%m-%d'",
-            "x86_64" : "date '+%Y-%m-%d'"
-        },
-        "time" : {
-            "armv7l" : "date '+%H:%M'",
-            "x86_64" : "date '+%H:%M'"
-        }
-    },
+    [...](省略)
     /**
-     * foreach ($MiniOS->configs["hardware_test"] as $key => $value) {
-     *     echo "<tr>";
-     *     echo "<th scope='row'>".$value["index"]."</th>";
-     *     echo "<td>".$key."</td>";
-     *     echo "<td>".$value["descriptor"]."</td>";
-     *     echo "<td>".$value["range"]."</td>";
-     *     echo "<td id='".$key."_value'>".$value["value"]."</td>";
-     *     echo "<td>";
-     *     echo "<img src='img/".$value["status"].".png' width='30' height='30' id='".$key."_status'/>";
-     *     echo "</td>";
-     *     echo "</tr>";
-     * }
-     *
-     * 图片状态status的id=$key."_status"
+     * 1. html:
+     *     foreach ($MiniOS->configs["hardware_test"] as $key => $value) {
+     *         echo "<tr>";
+     *         echo "<th scope='row'>".$value["index"]."</th>";
+     *         echo "<td>".$key."</td>";
+     *         echo "<td>".$value["descriptor"]."</td>";
+     *         echo "<td>";
+     *         echo "<img src='img/".$value["status"].".png' width='30' height='30' id='".$key."_status'/>";
+     *         echo "</td>";
+     *         echo "</tr>";
+     *     }
+     * 2. javascript:
+     *     var test_items = Object.keys(MiniConfig);
+     *     for (i = 0; i < test_items.length; i++) {
+     *         item = test_items[i];
+     *         console.log(item);
+     *         // gpio
+     *         if (data["data"].hasOwnProperty(item)) {
+     *             if (data["data"][item]["status"] == "ok") {
+     *                 $("#" + item + "_status").attr("src", "img/ok.png")
+     *             }
+     *         }
+     *     }
+     * 3. ajax:
+     *     $test_items = $MiniOS->configs["hardware_test"];
+     *     $test_items_sections = $MiniOS->get_config_sections($test_items);
+     *     foreach ($test_items_sections as $item) {
+     *         if (isset($test_items[$item]["shell"])) {
+     *             $result = exec($test_items[$item]["shell"]);
+     *             $json_array["data"][$item]["result"] = $result;
+     *             if ((isset($test_items[$item]["ret"]) && ($result == $test_items[$item]["ret"])) ||
+     *                     (! isset( $test_items[$item]["ret"]) && ($result != null))) {
+     *                 $json_array["data"][$item]["status"] = "ok";
+     *             } else {
+     *                 $json_array["data"][$item]["status"] = "error";
+     *             }
+     *         }
+     *     }
      */
     "hardware_test" : {
         "network1" : {
             "index" : 1,
+            "shell" : "ping -c 1 -W 1 192.168.1.20 2>&1 | grep ', 0% packet loss'",
             "descriptor" : "eth0",
-            "range" : "192.168.2.10",
-            "value" : "192.168.2.10",
-            "status" : "error"
-        },
-        "network2" : {
-            "index" : 2,
-            "descriptor" : "eth1",
-            "range" : "192.168.3.200",
-            "value" : "192.168.3.200",
+            "range" : "192.168.1.20",
+            "value" : "192.168.1.20",
             "status" : "error"
         },
         "rtc" : {
-            "index" : 3,
+            "index" : 2,
+            "shell" : "hwclock -r > /dev/null && echo $?",
             "descriptor" : "i2c",
             "range" : "",
             "value" : "",
             "status" : "error"
         },
-        "keyboard" : {
-            "index" : 4,
-            "descriptor" : "usb",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "mouse" : {
-            "index" : 5,
-            "descriptor" : "usb",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "DB9_RS232" : {
-            "index" : 6,
-            "descriptor" : "air quality",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "CON3_USB" : {
-            "index" : 7,
-            "descriptor" : "U Disk",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "CON3_I2C" : {
-            "index" : 8,
-            "descriptor" : "temperature",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "MIO_8_GPIO" : {
-            "index" : 9,
-            "descriptor" : "gpio",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "MIO_USB" : {
-            "index" : 10,
-            "descriptor" : "U disk",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "EEPROM" : {
-            "index" : 11,
-            "descriptor" : "i2c",
-            "range" : "",
-            "value" : "",
-            "status_tag_id" :"cn1_i2c",
-            "status" : "error"
-        }
+        [...](省略)
     }
 }
 ```

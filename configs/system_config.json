@@ -136,6 +136,7 @@
     "hardware_test" : {
         "network1" : {
             "index" : 1,
+            "shell" : "ping -c 1 -W 1 192.168.1.20 2>&1 | grep ', 0% packet loss'",
             "descriptor" : "eth0",
             "range" : "192.168.1.20",
             "value" : "192.168.1.20",
@@ -182,6 +183,7 @@
         },
         "MIO_8_GPIO" : {
             "index" : 7,
+            "shell" : "gpiotool -m t",
             "descriptor" : "gpio",
             "range" : "",
             "value" : "",

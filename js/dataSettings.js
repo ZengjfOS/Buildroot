@@ -167,6 +167,7 @@ function disableCoverMask(){
     $('.content').css({'display':'none'});
 }
 
+
 $(function(){  
     var value = $('input[type="radio"][name="IPSettings"]:checked').val();
 
@@ -181,94 +182,29 @@ $(function(){
         $("#staticSettingsAglinDiv").show();
     }
 
+    $.getJSON("configs/system_config.json", function(data) {
+        MiniConfig = data["hardware_test"];
+    });
+
     ajaxPostData = {"categories":"hardware_test", "type": "test"};
 
     send_ajax_data(ajaxPostData, 
         function(data){
             // output for check data
             console.info(data);
+            console.info(MiniConfig);
 
-            // gpio
-            if (data["data"].hasOwnProperty("gpio")) {
-                if (data["data"]["gpio"]["status"] == "ok") {
-                    $("#" + data["data"]["gpio"]["name"] + "_status").attr("src", "img/ok.png");
+            var test_items = Object.keys(MiniConfig);
+            for (i = 0; i < test_items.length; i++) {
+                item = test_items[i];
+                console.log(item);
+                // gpio
+                if (data["data"].hasOwnProperty(item)) {
+                    if (data["data"][item]["status"] == "ok") {
+                        $("#" + item + "_status").attr("src", "img/ok.png")
+                    }
                 }
             }
-
-            // eeprom
-            if (data["data"].hasOwnProperty("eeprom")) {
-                if (data["data"]["eeprom"]["status"] == "ok") {
-                    $("#" + data["data"]["eeprom"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // tmp75
-            if (data["data"].hasOwnProperty("tmp75")) {
-                if (data["data"]["tmp75"]["status"] == "ok") {
-                    console.info($("#" + data["data"]["tmp75"]["name"] + "_value")); 
-                    $("#" + data["data"]["tmp75"]["name"] + "_value").html(data["data"]["tmp75"]["value"]); 
-                    $("#" + data["data"]["tmp75"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // rtc
-            if (data["data"].hasOwnProperty("rtc")) {
-                if (data["data"]["rtc"]["status"] == "ok") {
-                    console.info($("#" + data["data"]["rtc"]["name"] + "_value")); 
-                    $("#" + data["data"]["rtc"]["name"] + "_value").html(data["data"]["rtc"]["value"]); 
-                    $("#" + data["data"]["rtc"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // DB9_RS232 us100
-            if (data["data"].hasOwnProperty("DB9_RS232")) {
-                if (data["data"]["DB9_RS232"]["status"] == "ok") {
-                    console.info($("#" + data["data"]["DB9_RS232"]["name"] + "_value")); 
-                    $("#" + data["data"]["DB9_RS232"]["name"] + "_value").html(data["data"]["DB9_RS232"]["value"]); 
-                    $("#" + data["data"]["DB9_RS232"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // keyboard
-            if (data["data"].hasOwnProperty("input")) {
-                if (data["data"]["input"]["keyboard"]["status"] == "ok") {
-                    console.info(data["data"]["input"]["keyboard"]["name"] + "_value"); 
-                    $("#" + data["data"]["input"]["keyboard"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // mouse
-            if (data["data"].hasOwnProperty("input")) {
-                if (data["data"]["input"]["mouse"]["status"] == "ok") {
-                    console.info(data["data"]["input"]["mouse"]["name"] + "_value"); 
-                    $("#" + data["data"]["input"]["mouse"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // usb SD1
-            if (data["data"].hasOwnProperty("udisk")) {
-                if (data["data"]["udisk"]["status"] == "ok") {
-                    console.info(data["data"]["udisk"]["name"] + "_value"); 
-                    $("#" + data["data"]["udisk"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
-            // usb SD2
-            // network1
-            if (data["data"].hasOwnProperty("network1")) {
-                if (data["data"]["network1"]["status"] == "ok") {
-                    console.info(data["data"]["network1"]["name"] + "_value"); 
-                    $("#" + data["data"]["network1"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-            // sdcard
-            if (data["data"].hasOwnProperty("SDCard")) {
-                if (data["data"]["SDCard"]["status"] == "ok") {
-                    console.info(data["data"]["SDCard"]["name"] + "_value"); 
-                    $("#" + data["data"]["SDCard"]["name"] + "_status").attr("src", "img/ok.png");
-                }
-            }
-
         }
     );
 }); 

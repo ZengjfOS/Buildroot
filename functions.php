@@ -41,7 +41,7 @@ class MiniOS_context {
     }
 
     // get all config sections
-    public function get_config_sections($key, $configs = null) {
+    public function get_config_sections($configs = null) {
         $sections = array();
 
         if ($configs == null) {
@@ -54,10 +54,9 @@ class MiniOS_context {
             }
         }
 
-        print_r($sections);
+        return $sections;
     }
 }
 
 $MiniOS = new MiniOS_context;
-
 ?> 
