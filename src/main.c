@@ -7,7 +7,7 @@
 #include <fcntl.h>
 
 
-#define DEBUG
+// #define DEBUG
 #ifdef DEBUG
     #define print(format, ...) printf(format"\r\n", ##__VA_ARGS__);
 #else
@@ -69,6 +69,8 @@ void help(void)
 int main(int argc, char** argv)
 {
 	int ch = 0;
+	int i = 0;
+	int j = 0;
 
 	if (argc <= 1) {
 		help();
@@ -111,13 +113,27 @@ int main(int argc, char** argv)
 		return -1;
 	}
 	
-	if (gpio_info.mode == 'i') {
-		if (strcmp(gpio_info.part, "mio") == 0)
+	if (strcmp(gpio_info.part, "mio") == 0) {
+		if (gpio_info.mode == 'i') {
 			gpio_info.value = ioctl(gpio_info.fd, part_mio[gpio_info.index]);
-		print( "%d", gpio_info.value);
-	} else {
-		if (strcmp(gpio_info.part, "mio") == 0);
+			printf( "%d", gpio_info.value);
+		} else if (gpio_info.mode == 'o') {
 			ioctl(gpio_info.fd, part_mio[gpio_info.index + 4], gpio_info.value);
+			printf( "0");
+		} else if (gpio_info.mode == 't') {
+			for (i = 0; i < sizeof(part_mio)/sizeof(part_mio[0]); i++) {
+				for (j = 0; j < 2; j++) {
+					ioctl(gpio_info.fd, part_mio[i + 4], j % 2);
+					usleep(10000);
+					gpio_info.value = ioctl(gpio_info.fd, part_mio[i]);
+					
+					if (gpio_info.value != (j % 2))
+						printf("-1");
+						break;
+				}
+
+			}
+		}
 	}
 	
 	close( gpio_info.fd );
