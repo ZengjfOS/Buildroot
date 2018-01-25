@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-UARTRS_VERSION = 9c09144c4395b81716983cdfe60f4fe8580fd456
+UARTRS_VERSION = fa2aea3857a08d0f0548e72ea60d5ccb5206b7ba
 UARTRS_SITE = https://github.com/ZengjfOS/UartRS
 UARTRS_SITE_METHOD = git
 UARTRS_LICENSE = LGPLv2.1

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_GPIOTOOL
+	bool "GPIO_Tool"
+	help
+	  GPIO_Tool is a tool for GPIO port test.
+
+	  https://github.com/ZengjfOS/Buildroot/tree/GPIO_Tool
+

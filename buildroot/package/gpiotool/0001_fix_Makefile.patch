@@ -1,0 +1,11 @@
+diff --git a/Makefile b/Makefile
+index 5143b43..d25c68d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,5 +1,5 @@
+ all:
+-	gcc src/main.c -o gpiotool
++	$(CC) src/main.c -o gpiotool
+ 
+ clean:
+ 	rm gpiotool
