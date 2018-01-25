@@ -127,9 +127,10 @@ int main(int argc, char** argv)
 					usleep(10000);
 					gpio_info.value = ioctl(gpio_info.fd, part_mio[i]);
 					
-					if (gpio_info.value != (j % 2))
+					if (gpio_info.value != (j % 2)) {
 						printf("-1");
 						exit(-1);
+					}
 				}
 
 			}
