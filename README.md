@@ -1,4 +1,4 @@
-# README
+# Buildroot
 
 [https://buildroot.org/](https://buildroot.org/)
 
@@ -17,12 +17,15 @@ dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 
 1. `make`  
   You need to execute `make config` at first.
-2. `make config`  
-  Use default config: freescale_imx6dlsabresd_defconfig
-3. `make savedefconfig`  
-  Save default config: freescale_imx6dlsabresd_defconfig
+2. `make config`
+    use default config: freescale_imx6dlsabresd_defconfig
+3. `make savedefconfig`
+    save default config: freescale_imx6dlsabresd_defconfig
 4. `make clean`
-5. `make help`
+5. `make webpage`
+    clone or pull webpage test from GitHub
+6. `make help`
+
 
 ## Buildroot Hacking Docs
 
@@ -30,34 +33,16 @@ dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 
 ## Compile Kernel
 
-Download: https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP
-
-```bash
-#!/bin/bash
-
-export CROSS_COMPILE=arm-buildroot-linux-gnueabi-
-export ARCH=arm
-
-make imx_v7_defconfig
-
-make -j4 LOADADDR=0x10008000 zImage
-make -j4 LOADADDR=0x10008000 dtbs
-
-make -j4 LOADADDR=0x10008000 modules
-make -j4 LOADADDR=0x10008000 modules_install INSTALL_MOD_PATH=`pwd`/_install_lib
-```
+* [Source Code](https://github.com/ZengjfOS/Buildroot/tree/fsl_kernel_L4.1.15_from_TP)
+* [Make Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_kernel_L4.1.15_from_TP/remake.sh)
 
 ## Compile U-Boot
 
-Download: https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP
+* [Source Code](https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP)
+* [Make Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_uboot_L4.1.15_from_TP/remake.sh)
 
-```bash
-#!/bin/bash
+## Hardware Test Web Page
 
-export CROSS_COMPILE=arm-buildroot-linux-gnueabi-
-export ARCH=arm
+只需要修改config文件即可完成自动测试，后台框架采用PHP编码；
 
-make mx6dlsabresd_defconfig
-
-make -j4
-```
+* [Web Test](https://github.com/ZengjfOS/Buildroot/tree/7112S_WebTest_Page)
