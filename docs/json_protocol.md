@@ -17,24 +17,6 @@
       "data": {
           "eeprom":{
               "status":"error"
-          },
-          "gpio":{
-              "status":"ok"
-          },
-          "input":{
-              "status":"error"
-          },
-          "rtc":{
-              "status":"error"
-          },
-          "tmp75":{
-              "status":"error"
-          },
-          "udisk":{
-              "status":"error"
-          },
-          "us100":{
-              "status":"error"
           }
       },
       "status":"ok"
