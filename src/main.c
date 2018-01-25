@@ -54,15 +54,41 @@ struct GPIO_INFO gpio_info = {
 void help(void)
 {
 	printf( \
-"USAGE\r\n" \
+" USAGE\r\n" \
 "    -d: device node, default is /dev/gpio_mio\r\n" \
-"    -m: \r\n" \
-"        i: input\r\n" \
-"        o: output\r\n" \
-"    -i: index\r\n" \
-"    -p: part, this is hardware mode\r\n" \
-"        m: mio\r\n" \
+"    -m: mode\r\n" \
+"        i: input mode\r\n" \
+"        o: output mode\r\n" \
+"        t: test mode\r\n" \
+"    -i: pin index\r\n" \
+"    -p: part, this is hardware interface\r\n" \
+"        default: mio\r\n" \
 "    -v: value, this just for output mode\r\n" \
+" RETURE:\r\n" \
+"     I. input mode\r\n" \
+"         1: pin is high\r\n" \
+"         0: pin is low\r\n" \
+"         -1: pin index error\r\n" \
+"     II: output mode\r\n" \
+"         0: operation is success\r\n" \
+"         -1: pin index error\r\n" \
+"     III: test mode\r\n" \
+"         0: operation is success\r\n" \
+"         -1: operation is failed\r\n" \
+" EXAMPLE:\r\n" \
+"     [buildroot@root ~]#  gpiotool -m t\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  gpiotool -m i -i 0\r\n" \
+"     1\r\n" \
+"     [buildroot@root ~]#  gpiotool -m o -i 0 -v 0\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  gpiotool -m i -i 0\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  gpiotool -m o -i 0 -v 1\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  gpiotool -m i -i 0\r\n" \
+"     1\r\n" \
+"     [buildroot@root ~]#\r\n" \
 	);
 }
 
@@ -77,7 +103,7 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
-	while((ch = getopt(argc, argv, "d:m:i:p:v:")) != -1)  
+	while((ch = getopt(argc, argv, "d:m:i:p:v:h")) != -1)  
 	{  
 		switch(ch) {
 			case 'd':
@@ -97,6 +123,7 @@ int main(int argc, char** argv)
 			case 'v':
 				gpio_info.value = *optarg - '0';
 				break;
+			case 'h':
 			default:
 				help();
 				exit(-1);
@@ -115,9 +142,15 @@ int main(int argc, char** argv)
 	
 	if (strcmp(gpio_info.part, "mio") == 0) {
 		if (gpio_info.mode == 'i') {
+			if ((sizeof(part_mio)/sizeof(part_mio[0]) / 2) <= gpio_info.index)
+				printf( "-1\r\n");
+
 			gpio_info.value = ioctl(gpio_info.fd, part_mio[gpio_info.index]);
 			printf( "%d\r\n", gpio_info.value);
 		} else if (gpio_info.mode == 'o') {
+			if ((sizeof(part_mio)/sizeof(part_mio[0]) / 2) <= gpio_info.index)
+				printf( "-1\r\n");
+
 			ioctl(gpio_info.fd, part_mio[gpio_info.index + 4], gpio_info.value);
 			printf( "0\r\n");
 		} else if (gpio_info.mode == 't') {
