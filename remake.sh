@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export CROSS_COMPILE=arm-AplexOS-linux-gnueabi-
+export PATH=$PATH:/home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/bin/
+export CROSS_COMPILE=arm-buildroot-linux-gnueabihf-
 export ARCH=arm
 
 make imx_v7_defconfig
