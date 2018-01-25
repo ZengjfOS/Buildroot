@@ -34,12 +34,12 @@ dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 ## Compile Kernel
 
 * [Source Code](https://github.com/ZengjfOS/Buildroot/tree/fsl_kernel_L4.1.15_from_TP)
-* [Make Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_kernel_L4.1.15_from_TP/remake.sh)
+* [Compile Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_kernel_L4.1.15_from_TP/remake.sh)
 
 ## Compile U-Boot
 
 * [Source Code](https://github.com/ZengjfOS/Buildroot/tree/fsl_uboot_L4.1.15_from_TP)
-* [Make Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_uboot_L4.1.15_from_TP/remake.sh)
+* [Compile Shell Script](https://github.com/ZengjfOS/Buildroot/blob/fsl_uboot_L4.1.15_from_TP/remake.sh)
 
 ## Hardware Test Web Page
 
