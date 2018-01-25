@@ -116,10 +116,10 @@ int main(int argc, char** argv)
 	if (strcmp(gpio_info.part, "mio") == 0) {
 		if (gpio_info.mode == 'i') {
 			gpio_info.value = ioctl(gpio_info.fd, part_mio[gpio_info.index]);
-			printf( "%d", gpio_info.value);
+			printf( "%d\r\n", gpio_info.value);
 		} else if (gpio_info.mode == 'o') {
 			ioctl(gpio_info.fd, part_mio[gpio_info.index + 4], gpio_info.value);
-			printf( "0");
+			printf( "0\r\n");
 		} else if (gpio_info.mode == 't') {
 			for (i = 0; i < (sizeof(part_mio)/sizeof(part_mio[0]) / 2) ; i++) {
 				for (j = 0; j < 2; j++) {
@@ -128,12 +128,14 @@ int main(int argc, char** argv)
 					gpio_info.value = ioctl(gpio_info.fd, part_mio[i]);
 					
 					if (gpio_info.value != (j % 2)) {
-						printf("-1");
+						printf("-1\r\n");
 						exit(-1);
 					}
 				}
 
 			}
+
+			printf("0\r\n");
 		}
 	}
 	
