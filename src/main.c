@@ -121,7 +121,7 @@ int main(int argc, char** argv)
 			ioctl(gpio_info.fd, part_mio[gpio_info.index + 4], gpio_info.value);
 			printf( "0");
 		} else if (gpio_info.mode == 't') {
-			for (i = 0; i < sizeof(part_mio)/sizeof(part_mio[0]); i++) {
+			for (i = 0; i < (sizeof(part_mio)/sizeof(part_mio[0]) / 2) ; i++) {
 				for (j = 0; j < 2; j++) {
 					ioctl(gpio_info.fd, part_mio[i + 4], j % 2);
 					usleep(10000);
@@ -129,7 +129,7 @@ int main(int argc, char** argv)
 					
 					if (gpio_info.value != (j % 2))
 						printf("-1");
-						break;
+						exit(-1);
 				}
 
 			}
