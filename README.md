@@ -1,4 +1,4 @@
-# GPIO Tool
+# Buzzer Tool
 
 ## Help
 
