@@ -23,6 +23,9 @@
 #define GPIO_OUT2_CMD_mio			72
 #define GPIO_OUT3_CMD_mio			73
 
+#define GPIO_CAN_TX_CON2			7
+#define GPIO_CAN_RX_CON2			8
+
 char part_mio[8] = {
 	GPIO_IN0_CMD_mio,
 	GPIO_IN1_CMD_mio,
@@ -32,6 +35,11 @@ char part_mio[8] = {
 	GPIO_OUT1_CMD_mio,
 	GPIO_OUT2_CMD_mio,
 	GPIO_OUT3_CMD_mio,
+};
+
+char part_CON2_CAN[2] = {
+	GPIO_CAN_TX_CON2,
+	GPIO_CAN_RX_CON2,
 };
 
 struct GPIO_INFO {
@@ -51,6 +59,93 @@ struct GPIO_INFO gpio_info = {
 0
 };
 
+int gpio_export(unsigned int gpio)
+{
+	int fd, len;
+	char str_gpio[3];
+	struct gpio_exp *new_gpio, *g;
+
+	if ((fd = open("/sys/class/gpio/export", O_WRONLY)) < 0)
+	{
+		return -1;
+	}
+	len = snprintf(str_gpio, sizeof(str_gpio), "%d", gpio);
+	write(fd, str_gpio, len);
+	close(fd);
+
+	return 0;
+}
+
+int gpio_unexport(unsigned int gpio)
+{
+	int fd, len;
+	char str_gpio[3];
+	struct gpio_exp *g, *temp, *prev_g = NULL;
+
+	if ((fd = open("/sys/class/gpio/unexport", O_WRONLY)) < 0)
+		return -1;
+
+	len = snprintf(str_gpio, sizeof(str_gpio), "%d", gpio);
+	write(fd, str_gpio, len);
+	close(fd);
+
+	return 0;
+}
+
+int gpio_set_direction(unsigned int gpio, unsigned int in_flag)
+{
+	int fd;
+	char filename[33];
+	
+	snprintf(filename, sizeof(filename), "/sys/class/gpio/gpio%d/direction", gpio);
+	if ((fd = open(filename, O_WRONLY)) < 0)
+		return -1;
+	
+	if (in_flag)
+		write(fd, "in", 3);
+	else
+		write(fd, "out", 4);
+	
+	close(fd);
+	return 0;
+}
+
+int gpio_set_value(unsigned int gpio, unsigned int value)
+{
+	int fd;
+	char filename[33];
+
+	snprintf(filename, sizeof(filename), "/sys/class/gpio/gpio%d/value", gpio);
+	if ((fd = open(filename, O_WRONLY)) < 0)
+		return -1;
+
+	if (value)
+		write(fd, "1", 2);
+	else
+		write(fd, "0", 2);
+
+	close(fd);
+
+	return 0;
+}
+
+int gpio_get_value(unsigned int gpio)
+{
+	int fd;
+	char filename[33];
+	char val_buf[2] = {0};
+
+	snprintf(filename, sizeof(filename), "/sys/class/gpio/gpio%d/value", gpio);
+	if ((fd = open(filename, O_RDONLY)) < 0)
+		return -1;
+
+	read(fd, val_buf, 1);
+
+	close(fd);
+
+	return atoi(val_buf);
+}
+
 void help(void)
 {
 	printf( \
@@ -62,6 +157,8 @@ void help(void)
 "        t: test mode\r\n" \
 "    -i: pin index\r\n" \
 "    -p: part, this is hardware interface\r\n" \
+"        mio: mio connector\r\n" \
+"        can1: can1 connector\r\n" \
 "        default: mio\r\n" \
 "    -v: value, this just for output mode\r\n" \
 " RETURE:\r\n" \
@@ -88,6 +185,18 @@ void help(void)
 "     0\r\n" \
 "     [buildroot@root ~]#  gpiotool -m i -i 0\r\n" \
 "     1\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m t\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m i -i 1\r\n" \
+"     1\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m o -i 0 -v 0\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m i -i 1\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m o -i 0 -v 1\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./gpiotool -p can1 -m i -i 1\r\n" \
+"     1\r\n" \
 "     [buildroot@root ~]#\r\n" \
 	);
 }
@@ -97,6 +206,7 @@ int main(int argc, char** argv)
 	int ch = 0;
 	int i = 0;
 	int j = 0;
+	int ret = 0;
 
 	if (argc <= 1) {
 		help();
@@ -166,6 +276,56 @@ int main(int argc, char** argv)
 					}
 				}
 
+			}
+
+			printf("0\r\n");
+		}
+	}
+
+	if (strcmp(gpio_info.part, "can1") == 0) {
+		print("can1 mode");
+		if (gpio_info.mode == 'i') {
+			if ((sizeof(part_CON2_CAN) / sizeof(part_CON2_CAN[0])) <= gpio_info.index)
+				printf( "-1\r\n");
+
+			gpio_export(part_CON2_CAN[gpio_info.index]);
+			gpio_set_direction(part_CON2_CAN[gpio_info.index], 1);
+			gpio_info.value = gpio_get_value(part_CON2_CAN[gpio_info.index]);
+			gpio_unexport(part_CON2_CAN[gpio_info.index]);
+			printf( "%d\r\n", gpio_info.value);
+		} else if (gpio_info.mode == 'o') {
+			if ((sizeof(part_CON2_CAN) / sizeof(part_CON2_CAN[0])) <= gpio_info.index)
+				printf( "-1\r\n");
+
+			gpio_export(part_CON2_CAN[gpio_info.index]);
+			gpio_set_direction(part_CON2_CAN[gpio_info.index], 0);
+			gpio_set_value(part_CON2_CAN[gpio_info.index], gpio_info.value);
+			gpio_unexport(part_CON2_CAN[gpio_info.index]);
+			printf( "0\r\n");
+		} else if (gpio_info.mode == 't') {
+			int times = (sizeof(part_CON2_CAN)/sizeof(part_CON2_CAN[0]) / 2);
+			for (i = 0; i < times; i++) {
+
+				gpio_export(part_CON2_CAN[i]);
+				gpio_export(part_CON2_CAN[i] + times);
+				gpio_set_direction(part_CON2_CAN[i], 0);
+				gpio_set_direction(part_CON2_CAN[i] + times, 1);
+				print("set gpio over");
+
+				for (j = 0; j < 2; j++) {
+					print("test");
+					gpio_set_value(part_CON2_CAN[i], j % 2);
+					usleep(10000);
+					ret = gpio_get_value(part_CON2_CAN[i] + times);
+					
+					if (ret != (j % 2)) {
+						printf("-1\r\n");
+						exit(-1);
+					}
+				}
+
+				gpio_export(part_CON2_CAN[i]);
+				gpio_export(part_CON2_CAN[i] + times);
 			}
 
 			printf("0\r\n");
