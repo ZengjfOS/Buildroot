@@ -9,7 +9,7 @@
     <tr>
       <th scope="col">Index</th>
       <th scope="col">Module</th>
-      <th scope="col">Port</th>
+      <th scope="col">Descriptor</th>
       <th scope="col">Status</th>
     </tr>
     <?php

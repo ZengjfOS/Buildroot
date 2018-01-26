@@ -138,80 +138,97 @@
             "index" : 1,
             "shell" : "ping -c 1 -W 1 192.168.1.20 2>&1 | grep ', 0% packet loss'",
             "descriptor" : "eth0",
-            "range" : "192.168.1.20",
             "value" : "192.168.1.20",
             "status" : "error"
         },
-        "rtc" : {
+        "MIO_I2C3" : {
             "index" : 2,
-            "shell" : "hwclock -r > /dev/null && echo $?",
-            "descriptor" : "i2c",
-            "range" : "",
-            "value" : "",
+            "shell" : "gpiotool -p i2c3 -m t | grep '^0'",
+            "descriptor" : "MIO I2C3",
             "status" : "error"
         },
-        "keyboard" : {
+        "Keyboard" : {
             "index" : 3,
             "shell" : "grep 'kbd event' /proc/bus/input/devices",
             "descriptor" : "usb",
-            "range" : "",
-            "value" : "",
             "status" : "error"
         },
-        "mouse" : {
+        "Mouse" : {
             "index" : 4,
             "shell" : "grep -E 'Mouse|mouse|mice|Mice' /proc/bus/input/devices | grep 'N:'",
             "descriptor" : "usb",
-            "range" : "",
-            "value" : "",
             "status" : "error"
         },
         "DB9_RS232" : {
             "index" : 5,
             "shell" : "uartRS /dev/ttymxc2 9600 4 '0123456789' | grep 0123456789",
-            "descriptor" : "air quality",
-            "range" : "",
-            "value" : "",
-            "status" : "error"
-        },
-        "CON2_I2C" : {
-            "index" : 6,
-            "descriptor" : "temperature",
-            "range" : "",
-            "value" : "",
+            "descriptor" : "UART3",
             "status" : "error"
         },
         "MIO_8_GPIO" : {
-            "index" : 7,
+            "index" : 6,
             "shell" : "gpiotool -m t",
             "descriptor" : "gpio",
-            "range" : "",
-            "value" : "",
             "status" : "error"
         },
         "MIO_USB" : {
-            "index" : 8,
+            "index" : 7,
             "shell" : "mount | grep '/mnt/usb/sd'",
             "descriptor" : "U disk",
-            "range" : "",
-            "value" : "",
             "status" : "error"
         },
         "EEPROM" : {
-            "index" : 9,
+            "index" : 8,
             "shell" : "dmesg | grep '24c02 EEPROM, writable, 1 bytes/write'",
-            "descriptor" : "i2c",
-            "range" : "",
-            "value" : "",
-            "status_tag_id" :"cn1_i2c",
+            "descriptor" : "GPIO I2C I2C4",
             "status" : "error"
         },
         "SDCard" : {
-            "index" : 10,
+            "index" : 9,
             "shell" : "mount | grep '/mnt/sdcard/mmcblk2'",
             "descriptor" : "sd card",
-            "range" : "",
-            "value" : "",
+            "status" : "error"
+        },
+        "MIO_UART2" : {
+            "index" : 10,
+            "shell" : "uartRS /dev/ttymxc1 9600 4 '0123456789' | grep 0123456789",
+            "descriptor" : "uart2",
+            "status" : "error"
+        },
+        "CON2_UART4" : {
+            "index" : 11,
+            "shell" : "uartRS /dev/ttymxc3 9600 4 '0123456789' | grep 0123456789",
+            "descriptor" : "uart4",
+            "status" : "error"
+        },
+        "PMU" : {
+            "index" : 12,
+            "shell" : "dmesg | grep ' pfuze100 found'",
+            "descriptor" : "CON2 I2C2",
+            "status" : "error"
+        },
+        "Touch" : {
+            "index" : 13,
+            "shell" : "dmesg | grep 'ar1021 Touchscreen'",
+            "descriptor" : "SPI",
+            "status" : "error"
+        },
+        "Screen" : {
+            "index" : 14,
+            "shell" : "fbset | grep '800x480-59'",
+            "descriptor" : "Framebuffer",
+            "status" : "error"
+        },
+        "Screen" : {
+            "index" : 15,
+            "shell" : "buzzertool -m t | grep '^0'",
+            "descriptor" : "Framebuffer",
+            "status" : "error"
+        },
+        "CAN1" : {
+            "index" : 16,
+            "shell" : "gpiotool -p can1 -m t | grep '^0'",
+            "descriptor" : "CAN GPIO",
             "status" : "error"
         }
     }
