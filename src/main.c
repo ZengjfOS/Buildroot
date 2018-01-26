@@ -7,7 +7,7 @@
 #include <fcntl.h>
 
 
-#define DEBUG
+// #define DEBUG
 #ifdef DEBUG
     #define print(format, ...) printf(format"\r\n", ##__VA_ARGS__);
 #else
@@ -43,6 +43,16 @@ void help(void)
 "        ef/fe: set freqency and start pwm\r\n" \
 "        t: test mode\r\n" \
 "    -f: freqency for pwm controler\r\n" \
+" EXAMPLE\r\n" \
+"     [buildroot@root ~]#  ./buzzertool -m t\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./buzzertool -m e\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./buzzertool -m ef -f 3000\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#  ./buzzertool -m d\r\n" \
+"     0\r\n" \
+"     [buildroot@root ~]#\r\n" \
 	);
 }
 
@@ -94,23 +104,24 @@ int main(int argc, char** argv)
 	}
 
 	if (strcmp(gpio_info.mode, "e") == 0) {
-		ioctl(gpio_info.fd, BUZZER_ENABLE);
+		ioctl(gpio_info.fd, BUZZER_ENABLE, 0);
 	} else if (strcmp(gpio_info.mode, "f") == 0) {
-		ioctl(gpio_info.fd, BUZZER_ENABLE, freqency);
-	} else if ((strcmp(gpio_info.mode, "ef") == 0) || (strcmp(gpio_info.mode, "fe") == 0)) {
-		ioctl(gpio_info.fd, BUZZER_ENABLE);
-		ioctl(gpio_info.fd, BUZZER_ENABLE, freqency);
+		ioctl(gpio_info.fd, BUZZER_FREQENCY, freqency);
+	} else if ((strcmp(gpio_info.mode, "ef") == 0) 
+			|| (strcmp(gpio_info.mode, "fe") == 0)) {
+		ioctl(gpio_info.fd, BUZZER_ENABLE, 0);
+		ioctl(gpio_info.fd, BUZZER_FREQENCY, freqency);
 	} else if (strcmp(gpio_info.mode, "d") == 0) {
-		ioctl(gpio_info.fd, BUZZER_DISABLE);
+		ioctl(gpio_info.fd, BUZZER_DISABLE, 0);
 	} else if (strcmp(gpio_info.mode, "t") == 0) {
-		ioctl(gpio_info.fd, BUZZER_ENABLE);
-		ioctl(gpio_info.fd, BUZZER_ENABLE, freqency);
+		ioctl(gpio_info.fd, BUZZER_ENABLE, 0);
+		ioctl(gpio_info.fd, BUZZER_FREQENCY, freqency);
 		usleep(100000);
-		ioctl(gpio_info.fd, BUZZER_ENABLE, freqency / 4 * (4 + 1));
+		ioctl(gpio_info.fd, BUZZER_FREQENCY, freqency / 4 * (4 + 1));
 		usleep(100000);
-		ioctl(gpio_info.fd, BUZZER_ENABLE, freqency / 4 * (4 + 2));
+		ioctl(gpio_info.fd, BUZZER_FREQENCY, freqency / 4 * (4 + 2));
 		usleep(100000);
-		ioctl(gpio_info.fd, BUZZER_DISABLE);
+		ioctl(gpio_info.fd, BUZZER_DISABLE, 0);
 	}
 
 	printf("0\r\n");
