@@ -1,0 +1,7 @@
+config BR2_PACKAGE_BUZZERTOOL
+	bool "Buzzer_Tool"
+	help
+	  Buzzer_Tool is a tool for Buzzer port test.
+
+	  https://github.com/ZengjfOS/Buildroot/tree/Buzzer_Tool
+

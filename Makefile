@@ -6,7 +6,7 @@ WEBPAGE_BRANCH=7112S_WebTest_Page
 
 default: config
 	sudo apt-get install texinfo
-	cd buildroot && make -j4
+	cd buildroot && make -j8
 
 config:
 	cp -v customize/configs/$(CONFIG_FILE) buildroot/configs/
