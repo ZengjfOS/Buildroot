@@ -11,10 +11,15 @@
 
 // #define DEBUG
 #ifdef DEBUG
-    #define print(format, ...) printf(format"\r\n", ##__VA_ARGS__);
+	#define print(fmt, ...)  printf(fmt"\r\n", ##__VA_ARGS__);
+
 #else
-    #define print(format, ...)
+	#define print(fmt, ...)
 #endif
+
+#define info_level 0
+#define info(debug, fmt, ...) \
+	do { if (debug > info_level) printf(format"\r\n", ##__VA_ARGS__); } while (0)
 
 #define IMX_GPIO_NR(bank, nr)         (((bank) - 1) * 32 + (nr))
 
@@ -26,15 +31,6 @@
 #define GPIO_OUT1_mio                 IMX_GPIO_NR(2, 5)
 #define GPIO_OUT2_mio                 IMX_GPIO_NR(2, 6)
 #define GPIO_OUT3_mio                 IMX_GPIO_NR(2, 7)
-
-#define GPIO_IN0_CMD_mio			66
-#define GPIO_IN1_CMD_mio			67
-#define GPIO_IN2_CMD_mio			68
-#define GPIO_IN3_CMD_mio			69
-#define GPIO_OUT0_CMD_mio			70
-#define GPIO_OUT1_CMD_mio			71
-#define GPIO_OUT2_CMD_mio			72
-#define GPIO_OUT3_CMD_mio			73
 
 #define GPIO_CAN_TX_CON2			7
 #define GPIO_CAN_RX_CON2			8
@@ -71,7 +67,6 @@ struct GPIO_INFO {
 	char index;
 	char part[16];
 	char value;
-	int fd;
 };
 struct GPIO_INFO gpio_info = {
 "/dev/gpio_mio",
@@ -79,7 +74,6 @@ struct GPIO_INFO gpio_info = {
 0,
 "mio",
 0,
-0
 };
 
 int gpio_export(unsigned int gpio)
@@ -169,6 +163,60 @@ int gpio_get_value(unsigned int gpio)
 	close(fd);
 
 	return atoi(val_buf);
+}
+
+int pin_out(int gpio_num, int value)
+{
+	gpio_export(gpio_num);
+	gpio_set_direction(gpio_num, 0);
+	gpio_set_value(gpio_num, value);
+	gpio_unexport(gpio_num);
+
+	return 0;
+}
+
+int pin_in(int gpio_num)
+{
+	int ret = 0;
+	gpio_export(gpio_num);
+	gpio_set_direction(gpio_num, 1);
+	ret = gpio_get_value(gpio_num);
+	gpio_unexport(gpio_num);
+
+	return ret;
+}
+
+int ctr_pin_work(char pins[], char pins_len)
+{
+	print("pins_len: %d\r\n", pins_len);
+	if (pins_len <= gpio_info.index)
+		printf( "-1\r\n");
+
+	if (gpio_info.mode == 'i') {
+		printf( "%d\r\n", pin_in(pins[gpio_info.index]));
+	} else if (gpio_info.mode == 'o') {
+		printf( "%d\r\n", pin_out(pins[gpio_info.index], gpio_info.value));
+	} else if (gpio_info.mode == 't') {
+		int i = 0;
+		int j = 0;
+		int ret = 0;
+		int times = (pins_len / 2);
+		for (i = 0; i < (pins_len / 2) ; i++) {
+			for (j = 0; j < 2; j++) {
+				print("test");
+				pin_out(pins[i], j % 2);
+				usleep(10000);
+				ret = pin_in(pins[i + times]);
+				
+				if (ret != (j % 2)) {
+					printf("-1\r\n");
+					exit(-1);
+				}
+			}
+		}
+
+		printf("0\r\n");
+	}
 }
 
 void help(void)
@@ -268,214 +316,19 @@ int main(int argc, char** argv)
 
 	print("%s, %c, %d, %s, %d", gpio_info.dev, gpio_info.mode, gpio_info.index, gpio_info.part, gpio_info.value);
 
-	gpio_info.fd = open(gpio_info.dev, O_RDWR);
-	if (gpio_info.fd == -1)
-	{
-		print("open device node error.");
-		return -1;
-	}
-	
 	if (strcmp(gpio_info.part, "mio") == 0) {
-		if (gpio_info.mode == 'i') {
-			if ((sizeof(part_MIO_GPIO)/sizeof(part_MIO_GPIO[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_MIO_GPIO[gpio_info.index]);
-			gpio_set_direction(part_MIO_GPIO[gpio_info.index], 1);
-			gpio_info.value = gpio_get_value(part_MIO_GPIO[gpio_info.index]);
-			gpio_unexport(part_MIO_GPIO[gpio_info.index]);
-			printf( "%d\r\n", gpio_info.value);
-		} else if (gpio_info.mode == 'o') {
-			if ((sizeof(part_MIO_GPIO)/sizeof(part_MIO_GPIO[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_MIO_GPIO[gpio_info.index]);
-			gpio_set_direction(part_MIO_GPIO[gpio_info.index], 0);
-			gpio_set_value(part_MIO_GPIO[gpio_info.index], gpio_info.value);
-			gpio_unexport(part_MIO_GPIO[gpio_info.index]);
-			printf( "0\r\n");
-		} else if (gpio_info.mode == 't') {
-			int times = (sizeof(part_MIO_GPIO)/sizeof(part_MIO_GPIO[0]) / 2);
-			for (i = 0; i < (sizeof(part_MIO_GPIO)/sizeof(part_MIO_GPIO[0]) / 2) ; i++) {
-				gpio_export(part_MIO_GPIO[i]);
-				gpio_export(part_MIO_GPIO[i + times]);
-				gpio_set_direction(part_MIO_GPIO[i], 0);
-				gpio_set_direction(part_MIO_GPIO[i + times], 1);
-				print("set gpio over");
-
-				for (j = 0; j < 2; j++) {
-					print("test");
-					gpio_set_value(part_MIO_GPIO[i], j % 2);
-					usleep(10000);
-					ret = gpio_get_value(part_MIO_GPIO[i + times]);
-					
-					if (ret != (j % 2)) {
-						printf("-1\r\n");
-						exit(-1);
-					}
-				}
-				gpio_export(part_MIO_GPIO[i]);
-				gpio_export(part_MIO_GPIO[i + times]);
-
-			}
-
-			printf("0\r\n");
-		}
-	}
-
-	if (strcmp(gpio_info.part, "can1") == 0) {
+		print("mio mode");
+		ctr_pin_work(part_MIO_GPIO, sizeof(part_MIO_GPIO) / sizeof(part_MIO_GPIO[0]));
+	} else if (strcmp(gpio_info.part, "can1") == 0) {
 		print("can1 mode");
-		if (gpio_info.mode == 'i') {
-			if ((sizeof(part_CON2_CAN) / sizeof(part_CON2_CAN[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_CON2_CAN[gpio_info.index]);
-			gpio_set_direction(part_CON2_CAN[gpio_info.index], 1);
-			gpio_info.value = gpio_get_value(part_CON2_CAN[gpio_info.index]);
-			gpio_unexport(part_CON2_CAN[gpio_info.index]);
-			printf( "%d\r\n", gpio_info.value);
-		} else if (gpio_info.mode == 'o') {
-			if ((sizeof(part_CON2_CAN) / sizeof(part_CON2_CAN[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_CON2_CAN[gpio_info.index]);
-			gpio_set_direction(part_CON2_CAN[gpio_info.index], 0);
-			gpio_set_value(part_CON2_CAN[gpio_info.index], gpio_info.value);
-			gpio_unexport(part_CON2_CAN[gpio_info.index]);
-			printf( "0\r\n");
-		} else if (gpio_info.mode == 't') {
-			int times = (sizeof(part_CON2_CAN)/sizeof(part_CON2_CAN[0]) / 2);
-			for (i = 0; i < times; i++) {
-
-				gpio_export(part_CON2_CAN[i]);
-				gpio_export(part_CON2_CAN[i] + times);
-				gpio_set_direction(part_CON2_CAN[i], 0);
-				gpio_set_direction(part_CON2_CAN[i] + times, 1);
-				print("set gpio over");
-
-				for (j = 0; j < 2; j++) {
-					print("test");
-					gpio_set_value(part_CON2_CAN[i], j % 2);
-					usleep(10000);
-					ret = gpio_get_value(part_CON2_CAN[i] + times);
-					
-					if (ret != (j % 2)) {
-						printf("-1\r\n");
-						exit(-1);
-					}
-				}
-
-				gpio_export(part_CON2_CAN[i]);
-				gpio_export(part_CON2_CAN[i] + times);
-			}
-
-			printf("0\r\n");
-		}
-	}
-
-	if (strcmp(gpio_info.part, "i2c2") == 0) {
+		ctr_pin_work(part_CON2_CAN, sizeof(part_CON2_CAN) / sizeof(part_CON2_CAN[0]));
+	} else if (strcmp(gpio_info.part, "i2c2") == 0) {
 		print("i2c2 mode");
-		if (gpio_info.mode == 'i') {
-			if ((sizeof(part_CON2_I2C2) / sizeof(part_CON2_I2C2[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_CON2_I2C2[gpio_info.index]);
-			gpio_set_direction(part_CON2_I2C2[gpio_info.index], 1);
-			gpio_info.value = gpio_get_value(part_CON2_I2C2[gpio_info.index]);
-			gpio_unexport(part_CON2_I2C2[gpio_info.index]);
-			printf( "%d\r\n", gpio_info.value);
-		} else if (gpio_info.mode == 'o') {
-			if ((sizeof(part_CON2_I2C2) / sizeof(part_CON2_I2C2[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_CON2_I2C2[gpio_info.index]);
-			gpio_set_direction(part_CON2_I2C2[gpio_info.index], 0);
-			gpio_set_value(part_CON2_I2C2[gpio_info.index], gpio_info.value);
-			gpio_unexport(part_CON2_I2C2[gpio_info.index]);
-			printf( "0\r\n");
-		} else if (gpio_info.mode == 't') {
-			int times = (sizeof(part_CON2_I2C2)/sizeof(part_CON2_I2C2[0]) / 2);
-			for (i = 0; i < times; i++) {
-
-				gpio_export(part_CON2_I2C2[i]);
-				gpio_export(part_CON2_I2C2[i + times]);
-				gpio_set_direction(part_CON2_I2C2[i], 0);
-				gpio_set_direction(part_CON2_I2C2[i + times], 1);
-				print("set gpio over");
-
-				for (j = 0; j < 2; j++) {
-					print("test");
-					gpio_set_value(part_CON2_I2C2[i], j % 2);
-					usleep(10000);
-					ret = gpio_get_value(part_CON2_I2C2[i + times]);
-					
-					if (ret != (j % 2)) {
-						printf("-1\r\n");
-						exit(-1);
-					}
-				}
-
-				gpio_export(part_CON2_I2C2[i]);
-				gpio_export(part_CON2_I2C2[i + times]);
-			}
-
-			printf("0\r\n");
-		}
-	}
-
-	if (strcmp(gpio_info.part, "i2c3") == 0) {
+		ctr_pin_work(part_CON2_I2C2, sizeof(part_CON2_I2C2) / sizeof(part_CON2_I2C2[0]));
+	} else if (strcmp(gpio_info.part, "i2c3") == 0) {
 		print("i2c3 mode");
-		if (gpio_info.mode == 'i') {
-			if ((sizeof(part_MIO_I2C3) / sizeof(part_MIO_I2C3[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_MIO_I2C3[gpio_info.index]);
-			gpio_set_direction(part_MIO_I2C3[gpio_info.index], 1);
-			gpio_info.value = gpio_get_value(part_MIO_I2C3[gpio_info.index]);
-			gpio_unexport(part_MIO_I2C3[gpio_info.index]);
-			printf( "%d\r\n", gpio_info.value);
-		} else if (gpio_info.mode == 'o') {
-			if ((sizeof(part_MIO_I2C3) / sizeof(part_MIO_I2C3[0])) <= gpio_info.index)
-				printf( "-1\r\n");
-
-			gpio_export(part_MIO_I2C3[gpio_info.index]);
-			gpio_set_direction(part_MIO_I2C3[gpio_info.index], 0);
-			gpio_set_value(part_MIO_I2C3[gpio_info.index], gpio_info.value);
-			gpio_unexport(part_MIO_I2C3[gpio_info.index]);
-			printf( "0\r\n");
-		} else if (gpio_info.mode == 't') {
-			int times = (sizeof(part_MIO_I2C3)/sizeof(part_MIO_I2C3[0]) / 2);
-			for (i = 0; i < times; i++) {
-
-				gpio_export(part_MIO_I2C3[i]);
-				gpio_export(part_MIO_I2C3[i + times]);
-				gpio_set_direction(part_MIO_I2C3[i], 0);
-				gpio_set_direction(part_MIO_I2C3[i + times], 1);
-				print("set gpio over");
-
-				for (j = 0; j < 2; j++) {
-					print("test");
-					gpio_set_value(part_MIO_I2C3[i], j % 2);
-					print("set gpio value: %d", j % 2);
-					usleep(10000);
-					ret = gpio_get_value(part_MIO_I2C3[i + times]);
-					print("get gpio value: %d", ret);
-					
-					if (ret != (j % 2)) {
-						printf("-1\r\n");
-						exit(-1);
-					}
-				}
-
-				gpio_export(part_MIO_I2C3[i]);
-				gpio_export(part_MIO_I2C3[i + times]);
-			}
-
-			printf("0\r\n");
-		}
+		ctr_pin_work(part_MIO_I2C3, sizeof(part_MIO_I2C3) / sizeof(part_MIO_I2C3[0]));
 	}
 	
-	close( gpio_info.fd );
-
 	return 0;
 }
