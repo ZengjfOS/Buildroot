@@ -6,7 +6,7 @@
 class MiniOS_context {
 
     // file path for json configure
-    public $config_file_path = "configs/system_config.json";
+    public $config_file_path = "config.json";
 
     // json data format
     public $configs = null;
