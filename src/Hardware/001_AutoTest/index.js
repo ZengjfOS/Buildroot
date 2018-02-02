@@ -85,12 +85,14 @@ $(function(){
                 // output for check data
                 console.info(data);
 
-                var test_items = Object.keys(MiniConfig);
+                var test_items = Object.keys(data["data"]);
+		console.log(test_items);
                 for (i = 0; i < test_items.length; i++) {
                     item = test_items[i];
                     if (data["data"].hasOwnProperty(item)) {
                         if (data["data"][item]["status"] == "ok") {
                             $("#" + item + "_status").attr("src", "img/ok.png")
+                            console.log($("#" + item + "_status"));
                         }
                     }
                 }
