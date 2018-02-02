@@ -1,0 +1,55 @@
+<ul class="nav navbar-nav">
+
+  <!--
+  <li>
+    <a href="javascript:void(0);" onclick="show_home_page();">Home Page</a>
+  </li>
+  -->
+
+  <% _.each(nav.maps, (item_e, key_e, list_e) => { %>
+  <!-- <%= _.keys(item_e)[0] %> -->
+  <li class="dropdown">
+  <a href="#" class="dropdown-toggle lang_<%= _.values(item_e)[0] %>" data-toggle="dropdown"><%= _.keys(item_e)[0] %><strong class="caret"></strong></a>
+    <ul class="dropdown-menu">
+      <% _.each(nav[nav.maps[key_e][_.keys(item_e)[0]]].pages, (item_i, key_i, list_i) => { %>
+
+      <% if (item_i.type == "linker") { %>
+
+      <li>
+        <a class="lang_<%= key_i %>" href="<%= item_i.url%>"><%= key_i %></a>
+      <% } else if (item_i.type == "html") { %>
+
+      <li>
+        <a class="lang_<%= key_i %>" href="javascript:void(0);" onclick="nav_click_search_content(this)"><%= key_i %></a>
+
+      <% } else if (item_i.type == "divider") { %>
+      <li class="divider">
+      <% }%>
+
+      </li>
+      <%
+      });
+      %>
+
+    </ul>
+  </li>
+
+  <%
+  });
+  %>
+
+</ul>
+
+<ul class="nav navbar-nav navbar-right">
+  <li class="dropdown">
+     <a href="#" class="dropdown-toggle lang_language" data-toggle="dropdown">Language<strong class="caret"></strong></a>
+    <ul class="dropdown-menu">
+      <li>
+         <a href="javascript:void(0);" onclick="nav_language_change(this)">en_GB</a>
+      </li>
+      <li>
+         <a href="javascript:void(0);" onclick="nav_language_change(this)">zh_CN</a>
+      </li>
+    </ul>
+  </li>
+</ul>

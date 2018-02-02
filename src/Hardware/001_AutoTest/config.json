@@ -1,0 +1,235 @@
+{
+    "navigation" : {
+        "welcome" : {
+            "link" : "#welcome-to-arm-settings", 
+            "content" : "Welcome to ARM-Settings"
+        },
+        "system_info" : {
+            "link" : "#base-infomation", 
+            "content" : "Base Infomation"
+        },
+        "network" : {
+            "link" : "#network",
+            "content" : "Network"
+        },
+        "data_and_time" : {
+            "link" : "#dateAndTime",
+            "content" : "Date & Time"
+        },
+        "hardware_test" : {
+            "link" : "#hardware-test",
+            "content" : "Hardware Test"
+        }
+    },
+    "system_info" : {
+        "CPU" : {
+            "cmd" : {
+                "armv7l" : "grep Hardware /proc/cpuinfo | awk -F ':' '{print $2}' | sed 's/ Sabre-SD Board//g'",
+                "x86_64" : "cat /proc/cpuinfo | grep 'model name' | tail -n 1 | awk -F ':' '{print $2}' | xargs"
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : ""
+            }
+
+        },
+        "Memery" : {
+            "cmd" : {
+                "armv7l" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'",
+                "x86_64" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'"
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : ""
+            }
+        },
+        "eMMC" : {
+            "cmd" : {
+                "armv7l" : "fdisk -l | grep mmcblk3: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
+                "x86_64" : "fdisk -l | grep /dev/sda | awk -F ':' '{print $2}' | awk -F ',' '{print $1}' | head -n 1 | xargs"
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : ""
+            }
+        },
+        "eMMC_Available" : {
+            "cmd" : {
+                "armv7l" : "df -h | grep /dev/root | awk -F ' ' '{print $4}'",
+                "x86_64" : ""
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : ""
+            }
+        },
+        "Operating_System_Type" : {
+            "cmd" : {
+                "armv7l" : "uname",
+                "x86_64" : "uname"
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : ""
+            }
+        },
+        "Linux_Version" : {
+            "cmd" : {
+                "armv7l" : "uname -a | awk -F ' ' '{print $3}'",
+                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
+            },
+            "compare" : {
+                "armv7l" : "",
+                "x86_64" : "4.8.0-54-generic"
+            }
+        },
+        "MAC1" : {
+            "cmd" : {
+                "armv7l" : "ifconfig | grep eth0 | awk -F ' ' '{print $5}'",
+                "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
+            }
+        }
+    },
+    "network" : {
+        "dhcp" : {
+            "check_mode" : {
+                "armv7l" : "grep 'iface eth0 inet dhcp' /etc/network/interfaces",
+                "x86_64" : ""
+            }
+        },
+        "static" : {
+            "check_mode" : {
+                "armv7l" : "grep 'iface eth0 inet static' /etc/network/interfaces",
+                "x86_64" : ""
+            },
+            "ip" : {
+                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $2}' | awk -F ':' '{print $2}'",
+                "x86_64" : ""
+            },
+            "netmask" : {
+                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $4}' | awk -F ':' '{print $2}'",
+                "x86_64" : ""
+            },
+            "broadcast" : {
+                "armv7l" : "ifconfig 'eth0' | grep 'inet ' | awk -F ' ' '{print $3}' | awk -F ':' '{print $2}'",
+                "x86_64" : ""
+            },
+            "gateway" : {
+                "armv7l" : "route -n | grep UG | head -n  1 | awk -F ' ' '{print $2}'",
+                "x86_64" : "route -n | grep UG | head -n  1 | awk -F ' ' '{print $2}'"
+            }
+        },
+        "ping" : {
+            "ip" : "127.0.0.1"
+        }
+    },
+    "date_and_time" : {
+        "date" : {
+            "armv7l" : "date '+%Y-%m-%d'",
+            "x86_64" : "date '+%Y-%m-%d'"
+        },
+        "time" : {
+            "armv7l" : "date '+%H:%M'",
+            "x86_64" : "date '+%H:%M'"
+        }
+    },
+    "hardware_test" : {
+        "network1" : {
+            "index" : 1,
+            "shell" : "ping -c 1 -W 1 192.168.1.20 2>&1 | grep ', 0% packet loss'",
+            "descriptor" : "eth0",
+            "value" : "192.168.1.20",
+            "status" : "error"
+        },
+        "MIO_I2C3" : {
+            "index" : 2,
+            "shell" : "gpiotool -p i2c3 -m t | grep '^0'",
+            "descriptor" : "MIO I2C3",
+            "status" : "error"
+        },
+        "Keyboard" : {
+            "index" : 3,
+            "shell" : "grep 'kbd event' /proc/bus/input/devices",
+            "descriptor" : "usb",
+            "status" : "error"
+        },
+        "Mouse" : {
+            "index" : 4,
+            "shell" : "grep -E 'Mouse|mouse|mice|Mice' /proc/bus/input/devices | grep 'N:'",
+            "descriptor" : "usb",
+            "status" : "error"
+        },
+        "DB9_RS232" : {
+            "index" : 5,
+            "shell" : "uartRS /dev/ttymxc2 9600 4 '0123456789' | grep 0123456789",
+            "descriptor" : "UART3",
+            "status" : "error"
+        },
+        "MIO_8_GPIO" : {
+            "index" : 6,
+            "shell" : "gpiotool -m t",
+            "descriptor" : "gpio",
+            "status" : "error"
+        },
+        "MIO_USB" : {
+            "index" : 7,
+            "shell" : "mount | grep '/mnt/usb/sd'",
+            "descriptor" : "U disk",
+            "status" : "error"
+        },
+        "EEPROM" : {
+            "index" : 8,
+            "shell" : "dmesg | grep '24c02 EEPROM, writable, 1 bytes/write'",
+            "descriptor" : "GPIO I2C I2C4",
+            "status" : "error"
+        },
+        "SDCard" : {
+            "index" : 9,
+            "shell" : "mount | grep '/mnt/sdcard/mmcblk2'",
+            "descriptor" : "sd card",
+            "status" : "error"
+        },
+        "MIO_UART2" : {
+            "index" : 10,
+            "shell" : "uartRS /dev/ttymxc1 9600 4 '0123456789' | grep 0123456789",
+            "descriptor" : "uart2",
+            "status" : "error"
+        },
+        "CON2_UART4" : {
+            "index" : 11,
+            "shell" : "uartRS /dev/ttymxc3 9600 4 '0123456789' | grep 0123456789",
+            "descriptor" : "uart4",
+            "status" : "error"
+        },
+        "PMU" : {
+            "index" : 12,
+            "shell" : "dmesg | grep ' pfuze100 found'",
+            "descriptor" : "CON2 I2C2",
+            "status" : "error"
+        },
+        "Touch" : {
+            "index" : 13,
+            "shell" : "dmesg | grep 'ar1021 Touchscreen'",
+            "descriptor" : "SPI",
+            "status" : "error"
+        },
+        "Screen" : {
+            "index" : 14,
+            "shell" : "fbset | grep '800x480-59'",
+            "descriptor" : "Framebuffer",
+            "status" : "error"
+        },
+        "Screen" : {
+            "index" : 15,
+            "shell" : "buzzertool -m t | grep '^0'",
+            "descriptor" : "Framebuffer",
+            "status" : "error"
+        },
+        "CAN1" : {
+            "index" : 16,
+            "shell" : "gpiotool -p can1 -m t | grep '^0'",
+            "descriptor" : "CAN GPIO",
+            "status" : "error"
+        }
+    }
+}

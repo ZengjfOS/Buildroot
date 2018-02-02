@@ -1,0 +1,43 @@
+.systemInfoTable{
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+}
+
+.systemInfoTableIndex{
+    width: 10%;
+}
+
+.systemInfoTableType{
+    width: 30%;
+}
+
+.systemInfoTableInfo{
+    width: 50%;
+}
+
+.systemInfoTableStatus{
+    width: 50%;
+}
+
+.hardwareInfo{
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+}
+
+.hardwareInfoIndex{
+    width: 10%;
+}
+
+.hardwareInfoType{
+    width: 30%;
+}
+
+.hardwareInfoInfo{
+    width: 50%;
+}
+
+.hardwareInfoStatus{
+    width: 50%;
+}
