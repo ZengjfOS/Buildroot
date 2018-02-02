@@ -18,12 +18,12 @@ dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 1. `make`  
   You need to execute `make config` at first.
 2. `make config`  
-    use default config: freescale_imx6dlsabresd_defconfig
+  Use default config: freescale_imx6dlsabresd_defconfig
 3. `make savedefconfig`  
-    save default config: freescale_imx6dlsabresd_defconfig
+  Save default config: freescale_imx6dlsabresd_defconfig
 4. `make clean`
 5. `make webpage`  
-    clone or pull webpage test from GitHub
+  Clone or pull webpage test from GitHub
 6. `make help`
 
 
