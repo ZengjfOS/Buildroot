@@ -35,7 +35,7 @@
         },
         "Memery" : {
             "cmd" : {
-                "armv7l" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1 $2}'",
+                "armv7l" : "echo $((`grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'`/1024)) MB",
                 "x86_64" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'"
             },
             "compare" : {
