@@ -45,15 +45,13 @@ $(function(){
         htmlString = "";
         i = 1;
         _.each(MiniConfig["system_info"], (item, key, list) => {
-            console.log(key);
-            console.log(item);
             // console.log(list);
             htmlString += "<tr>";
             htmlString += "  <td class='systemInfoTable systemInfoTableIndex'>" + i++ + "</td>\n";
             htmlString += "  <td class='systemInfoTable systemInfoTableType'>" + key + ":</td>\n";
             htmlString += "  <td class='systemInfoTable systemInfoTableInfo' id='system_info_" + key + "'>Wating...</td>\n";
             htmlString += "  <td class='systemInfoTable systemInfoTableStatus'>";
-            htmlString += "   <img src='img/error.png' width='30' height='30'/>";
+            htmlString += "   <img src='img/error.png' width='30' height='30' id='" + key + "_status'/>";
             htmlString += "  </td>";
             htmlString += "</tr>";
         });
@@ -82,17 +80,26 @@ $(function(){
         ajaxPostData = {"categories":"hardware_test", "type": "test"};
         send_ajax_data(frame_argv["path"] + "/backend.php", ajaxPostData, 
             function(data){
-                // output for check data
-                console.info(data);
 
-                var test_items = Object.keys(data["data"]);
+                var test_items = Object.keys(data["data"]["hardware_test"]);
 		console.log(test_items);
                 for (i = 0; i < test_items.length; i++) {
                     item = test_items[i];
-                    if (data["data"].hasOwnProperty(item)) {
-                        if (data["data"][item]["status"] == "ok") {
+                    if (data["data"]["hardware_test"].hasOwnProperty(item)) {
+                        if (data["data"]["hardware_test"][item]["status"] == "ok") {
                             $("#" + item + "_status").attr("src", "img/ok.png")
-                            console.log($("#" + item + "_status"));
+                        }
+                    }
+                }
+
+                var test_items = Object.keys(data["data"]["system_info"]);
+		console.log(test_items);
+                for (i = 0; i < test_items.length; i++) {
+                    item = test_items[i];
+                    if (data["data"]["system_info"].hasOwnProperty(item)) {
+                        if (data["data"]["system_info"][item]["status"] == "ok") {
+                            $("#system_info_" + item)[0].innerHTML = data["data"]["system_info"][item]["result"];
+                            $("#" + item + "_status").attr("src", "img/ok.png")
                         }
                     }
                 }

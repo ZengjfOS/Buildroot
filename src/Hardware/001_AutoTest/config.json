@@ -35,7 +35,7 @@
         },
         "Memery" : {
             "cmd" : {
-                "armv7l" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'",
+                "armv7l" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1 $2}'",
                 "x86_64" : "grep MemTotal /proc/meminfo | awk -F ':' '{print $2}' | awk -F ' ' '{print $1}'"
             },
             "compare" : {
@@ -75,7 +75,7 @@
         },
         "Linux_Version" : {
             "cmd" : {
-                "armv7l" : "uname -a | awk -F ' ' '{print $3}'",
+                "armv7l" : "uname -a | awk -F ' ' '{print $3}' | awk -F '+' '{print $1}'",
                 "x86_64" : "uname -a | awk -F ' ' '{print $3}'"
             },
             "compare" : {
