@@ -1,76 +1,67 @@
-$(function(){ 
+function getFileName(filePath){  
+    var pos = filePath.lastIndexOf("/");  
+    return filePath.substring(pos+1);    
+}  
 
-    var div = document.getElementById('showContent');
+function set_DO_Value(img) {
 
-    // Create a client instance
-    var client = new Paho.MQTT.Client("zengjf.mqtt.iot.gz.baidubce.com", 8884, "DeviceId-" + Math.random().toString(36).substring(7));
-    var server_connected = false;
-    
-    // set callback handlers
-    client.onConnectionLost = onConnectionLost;
-    client.onMessageArrived = onMessageArrived;
-    
-    // connect the client
-    client.connect({onSuccess:onConnect, onFailure:onConnectError, userName:"zengjf/sz_monitor_room", password:"QE0BHFvFnIkBRIaJtPYzo3m/63Esv5fzzMr9tYVOsHo=", useSSL:true});
-    
-    
-    // called when the client connects
-    function onConnect() {
-      // Once a connection has been made, make a subscription and send a message.
-      showMessageContent("onConnect:", "connect");
-      client.subscribe("test-iot-sub");
-      showMessageContent("subscribe:", "test-iot-sub");
+    // console.log(img.src);
+    var fileName = getFileName(img.src);
+    if (fileName == "power_gray.png") {
+        img.src = "img/power_blue.png";
+    } else {
+        img.src = "img/power_gray.png";
+    }
+}
 
-      server_connected = true;
+function randomPowerStatus(img) {
+
+    var fileName = getFileName(img[0].src);
+    var imgName = img[0].name;
+    
+    if (((Math.random() * (10 - 1) + 1) / 5) > 1) {
+        if (fileName == "led_green.png" || fileName == "led_orange.png" || fileName == "led_blue.png" || fileName == "led_white.png") {
+            img[0].src = "img/led_gray.png"
+        } else {
+            var moduleColor = imgName.substring(imgName.lastIndexOf("_") + 1);    
+            img[0].src = "img/led_" + moduleColor + ".png";
+        }
+    }
+}
+
+color_array = ["green", "orange", "blue", "white"];
+
+function timedCount()
+{
+
+    for (var i = 0; i < color_array.length; i++) {
+        randomPowerStatus(document.getElementsByName("module1_led_" + color_array[i]));
     }
 
-    // called when the client connects
-    function onConnectError() {
-      // Once a connection has been made, make a subscription and send a message.
-      showMessageContent("onConnectError:", "Error");
-    }
-    
-    // called when the client loses its connection
-    function onConnectionLost(responseObject) {
-      if (responseObject.errorCode !== 0) {
-        showMessageContent("onConnectionLost:", responseObject.errorMessage);
+    setTimeout("timedCount()",1000);
+}
 
-        // Create a client instance
-        client = new Paho.MQTT.Client("zengjf.mqtt.iot.gz.baidubce.com", 8884, "DeviceId-" + Math.random().toString(36).substring(7));
-        server_connected = false;
-        
-        // set callback handlers
-        client.onConnectionLost = onConnectionLost;
-        client.onMessageArrived = onMessageArrived;
-        
-        // connect the client
-        client.connect({onSuccess:onConnect, onFailure:onConnectError, userName:"zengjf/sz_monitor_room", password:"QE0BHFvFnIkBRIaJtPYzo3m/63Esv5fzzMr9tYVOsHo=", useSSL:true});
-      }
-    }
-    
-    // called when a message arrives
-    function onMessageArrived(message) {
-      showMessageContent("onMessageArrived:", message.payloadString);
-
-      stminfo = JSON.parse(message.payloadString);
-      temperature.refresh(stminfo["temperature"]);
+$(function(){
+    function footerPosition(){
+        $("footer").removeClass("fixed-bottom");
+        var contentHeight = document.body.scrollHeight,//网页正文全文高度
+            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+        if(!(contentHeight > winHeight)){
+            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+            $("footer").addClass("fixed-bottom");
+        }
     }
 
-    function showMessageContent(type, message) {
-      div.innerHTML += "<div style='background : #999;'>" + type + "</div>"
-      div.innerHTML += "<div>" + message + "</div>";
+    footerPosition();
+    $(window).resize(footerPosition);
+    timedCount();
+
+    // auto to center
+    if (document.documentElement.clientHeight > 738) {
+        $("#sp_spacing_div").height((document.documentElement.clientHeight / 2) - (738 / 2));
     }
-
-    showMessageContent("Content init Ready:", "MQTT Client Set Over, Wait Data Tranfer.");
-
-    var temperature = new JustGage({
-      id: "gauge",
-      value: 25,
-      min: 0,
-      max: 100,
-      symbol: '℃',
-    });
 });
+
 
 // framework callback
 function GPIO_init(json_data) {
