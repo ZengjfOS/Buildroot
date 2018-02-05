@@ -8,18 +8,10 @@
 
 #define IMX_GPIO_NR(bank, nr)		(((bank) - 1) * 32 + (nr))
 
-
-// #define DEBUG
-#ifdef DEBUG
-	#define print(fmt, ...)  printf(fmt"\r\n", ##__VA_ARGS__);
-
-#else
-	#define print(fmt, ...)
-#endif
-
 #define info_level 0
-#define info(debug, fmt, ...) \
-	do { if (debug > info_level) printf(format"\r\n", ##__VA_ARGS__); } while (0)
+int debug = 0;
+#define print(fmt, ...) \
+	do { if (debug > info_level) printf(fmt"\r\n", ##__VA_ARGS__); } while (0)
 
 #define IMX_GPIO_NR(bank, nr)         (((bank) - 1) * 32 + (nr))
 
@@ -62,14 +54,12 @@ char part_CON2_I2C2[2] = {
 };
 
 struct GPIO_INFO {
-	char dev[32];
 	char mode;
 	char index;
 	char part[16];
 	char value;
 };
 struct GPIO_INFO gpio_info = {
-"/dev/gpio_mio",
 'i',
 0,
 "mio",
@@ -286,12 +276,11 @@ int main(int argc, char** argv)
 		exit(-1);
 	}
 
-	while((ch = getopt(argc, argv, "d:m:i:p:v:h")) != -1)  
+	while((ch = getopt(argc, argv, "dm:i:p:v:h")) != -1)  
 	{  
 		switch(ch) {
 			case 'd':
-				bzero(gpio_info.dev, sizeof(gpio_info.dev));
-				strcpy(gpio_info.dev, optarg); 
+				debug = 1;
 				break;
 			case 'm':
 				gpio_info.mode = *optarg;
@@ -314,7 +303,7 @@ int main(int argc, char** argv)
 		}
 	}  
 
-	print("%s, %c, %d, %s, %d", gpio_info.dev, gpio_info.mode, gpio_info.index, gpio_info.part, gpio_info.value);
+	print("%c, %d, %s, %d", gpio_info.mode, gpio_info.index, gpio_info.part, gpio_info.value);
 
 	if (strcmp(gpio_info.part, "mio") == 0) {
 		print("mio mode");
