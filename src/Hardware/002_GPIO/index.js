@@ -1,3 +1,40 @@
+function send_ajax_data(path, json_data, success_function)
+{
+    if (success_function == null) {
+        console.info("Please pass send_ajax_data function as argument.");
+        return ;
+    }
+
+    $.ajax({
+        url: path,
+        type: 'POST',
+        contentType:'application/json; charset=utf-8',
+        data: JSON.stringify(json_data),
+        dataType:'json',
+        success: function(data){
+            //On ajax success do this
+            console.info("ajax back infomations success.");
+            console.info(data);
+
+            if (data["status"] == "ok"){
+                success_function(data);
+            } else {
+                alert("Please Go To Console Get More Infomations.");
+
+                console.info(data);
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            //On error do this
+            alert("Please Go To Console Get More Infomations.");
+
+            console.info(xhr);
+            console.info(ajaxOptions);
+            console.info(thrownError);
+        }
+    });
+}
+
 function getFileName(filePath){  
     var pos = filePath.lastIndexOf("/");  
     return filePath.substring(pos+1);    
@@ -5,13 +42,32 @@ function getFileName(filePath){
 
 function set_DO_Value(img) {
 
-    // console.log(img.src);
+    console.log(img.name);
+    var index = img.name.split("_")[1];
+    console.log(index);
+
     var fileName = getFileName(img.src);
-    if (fileName == "power_gray.png") {
-        img.src = "img/power_blue.png";
-    } else {
-        img.src = "img/power_gray.png";
-    }
+    var val = 0;
+    if (fileName != "power_gray.png") 
+        val = 1;
+
+    ajaxPostData = {"categories":"hardware_gpio", "type": "output", "index": index, "value": val};
+    send_ajax_data(frame_argv["path"] + "/backend.php", ajaxPostData, 
+        function(data){
+            console.log(data);
+
+            if (data["status"] == "ok") {
+                var fileName = getFileName(img.src);
+                if (fileName == "power_gray.png") {
+                    img.src = "img/power_blue.png";
+                } else {
+                    img.src = "img/power_gray.png";
+                }
+            }
+
+        }
+    );
+
 }
 
 function randomPowerStatus(img) {
@@ -34,26 +90,23 @@ color_array = ["green", "orange", "blue", "white"];
 function timedCount()
 {
 
+    /*
     for (var i = 0; i < color_array.length; i++) {
         randomPowerStatus(document.getElementsByName("module1_led_" + color_array[i]));
     }
+    */
+
+    ajaxPostData = {"categories":"hardware_gpio", "type": "input"};
+    send_ajax_data(frame_argv["path"] + "/backend.php", ajaxPostData, 
+        function(data){
+            console.log(data);
+        }
+    );
 
     setTimeout("timedCount()",1000);
 }
 
 $(function(){
-    function footerPosition(){
-        $("footer").removeClass("fixed-bottom");
-        var contentHeight = document.body.scrollHeight,//网页正文全文高度
-            winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
-        if(!(contentHeight > winHeight)){
-            //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
-            $("footer").addClass("fixed-bottom");
-        }
-    }
-
-    footerPosition();
-    $(window).resize(footerPosition);
     timedCount();
 
     // auto to center
@@ -64,7 +117,7 @@ $(function(){
 
 
 // framework callback
-function GPIO_init(json_data) {
-    console.info("AplexOS_IoT_Demo_Temperature: " + json_data["type"]);
-
+function GPIO_init(argv) {
+    frame_argv = argv;
+    console.log(argv);
 }

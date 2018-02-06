@@ -1,8 +1,3 @@
-body {
-  margin: 0px;
-  background: #c9caca
-}
-
 .sps_header_css{
   height: 56px;
   background-image: url("../img/gateway-01.png");
@@ -26,14 +21,14 @@ body {
   width:100%;
 }
 
-table {
+.sps_table_prop {
   // border: 0px solid black;
   color: aliceblue;
   height:300px; 
   width:800px; 
   background-color: #707070;
   table-layout: fixed; 
-  margin-top: 100px;
+  margin-top: 10px;
   padding-top: 40px;
   padding-bottom: 40px;
   border-radius:30px;
@@ -41,7 +36,7 @@ table {
   text-align:center;
 }
 
-table td img {
+.sps_img_button {
   width:60px;
   height: 60px;
 }
@@ -49,6 +44,11 @@ table td img {
 .sps_img_button:hover {
   width:65px;
   height: 65px;
+}
+
+.sps_img_button_static{
+  width:60px;
+  height: 60px;
 }
 
 .sps_img_tr {
