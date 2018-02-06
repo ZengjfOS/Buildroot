@@ -1,0 +1,36 @@
+.UpdateSystemTable{
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+}
+
+.UpdateSystemTableTd{
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}
+
+.UpdateSystemTableTd_Info{
+    width: 20%;
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}
+
+.UpdateSystemTableTd_Select{
+    width: 30%;
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}
+
+.UpdateSystemTableTd_Update{
+    width: 20%;
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}

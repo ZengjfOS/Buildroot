@@ -81,6 +81,10 @@ var configs = {
                 "SystemInfo" : {
                     "index" : "001",
                     "type" : "html",
+                },
+                "UpdateSystem" : {
+                    "index" : "002",
+                    "type" : "html",
                 }
             }
         }

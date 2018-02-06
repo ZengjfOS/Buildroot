@@ -1,0 +1,72 @@
+<div>
+  <table align="center" width="80%">
+    <tr>
+      <form id="updata_uboot" enctype="multipart/form-data" method="post" action="upload.php">
+        <td class="UpdateSystemTableTd_Info">
+          <label for="fileToUpload">U-Boot</label>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="button" onclick="uploadFile()" value="Upload" />
+        </td>
+        <td class="UpdateSystemTableTd">
+          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        </td>
+      </form>
+    </tr>
+    <tr>
+      <form id="updata_zImage" enctype="multipart/form-data" method="post" action="upload.php">
+        <td class="UpdateSystemTableTd_Info">
+          <label for="fileToUpload">zImage</label>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="button" onclick="uploadFile()" value="Upload" />
+        </td>
+        <td class="UpdateSystemTableTd">
+          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        </td>
+      </form>
+    </tr>
+    <tr>
+      <form id="updata_dtb" enctype="multipart/form-data" method="post" action="upload.php">
+        <td class="UpdateSystemTableTd_Info">
+          <label for="fileToUpload">dtb</label>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </td>
+        <td class="UpdateSystemTableTd">
+          <input type="button" onclick="uploadFile()" value="Upload" />
+        </td>
+        <td class="UpdateSystemTableTd">
+          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        </td>
+      </form>
+    </tr>
+    <tr>
+      <form id="updata_dtb" enctype="multipart/form-data" method="post" action="upload.php">
+        <td class="UpdateSystemTableTd_Info">
+          <label for="fileToUpload">common file</label>
+        </td>
+        <td class="UpdateSystemTableTd_Select">
+          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+        </td>
+        <td class="UpdateSystemTableTd_Update">
+          <input type="button" onclick="uploadFile()" value="Upload" />
+        </td>
+        <td class="UpdateSystemTableTd">
+          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        </td>
+      </form>
+    </tr>
+  </table>
+  <br> <br> <br>
+  <hr>
+  <div id="showBack">
+  </div>
+<div>
