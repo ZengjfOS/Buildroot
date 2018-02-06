@@ -13,8 +13,8 @@ function send_ajax_data(path, json_data, success_function)
         dataType:'json',
         success: function(data){
             //On ajax success do this
-            console.info("ajax back infomations success.");
-            console.info(data);
+            // console.info("ajax back infomations success.");
+            // console.info(data);
 
             if (data["status"] == "ok"){
                 success_function(data);
@@ -90,16 +90,21 @@ color_array = ["green", "orange", "blue", "white"];
 function timedCount()
 {
 
-    /*
-    for (var i = 0; i < color_array.length; i++) {
-        randomPowerStatus(document.getElementsByName("module1_led_" + color_array[i]));
-    }
-    */
-
     ajaxPostData = {"categories":"hardware_gpio", "type": "input"};
     send_ajax_data(frame_argv["path"] + "/backend.php", ajaxPostData, 
         function(data){
-            console.log(data);
+            for (var i = 0; i < color_array.length; i++) {
+                img = document.getElementsByName("module1_led_" + color_array[i]);
+                var fileName = getFileName(img[0].src);
+                var imgName = img[0].name;
+                
+                if (data["gpios"]["in_" + i]["status"] == "ok" && data["gpios"]["in_" + i]["value"] == 0) {
+                    img[0].src = "img/led_gray.png"
+                } else {
+                    var moduleColor = imgName.substring(imgName.lastIndexOf("_") + 1);    
+                    img[0].src = "img/led_" + moduleColor + ".png";
+                }
+            }
         }
     );
 
@@ -113,6 +118,26 @@ $(function(){
     if (document.documentElement.clientHeight > 738) {
         $("#sp_spacing_div").height((document.documentElement.clientHeight / 2) - (738 / 2));
     }
+
+    ajaxPostData = {"categories":"hardware_gpio", "type": "input"};
+    send_ajax_data(frame_argv["path"] + "/backend.php", ajaxPostData, 
+        function(data){
+            console.log(data);
+            for (var i = 0; i < color_array.length; i++) {
+                img = document.getElementsByName("output_" + i);
+                var fileName = getFileName(img[0].src);
+                var imgName = img[0].name;
+                
+                if (data["status"] == "ok") {
+                    if (data["gpios"]["in_" + i]["status"] == "ok" && data["gpios"]["in_" + i]["value"] == 0) {
+                        img[0].src = "img/power_blue.png";
+                    } else {
+                        img[0].src = "img/power_gray.png";
+                    }
+                }
+            }
+        }
+    );
 });
 
 
