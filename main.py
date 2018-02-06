@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-# # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
+# Copyright (c) 2016 - zengjf <zengjf42@163.com>
 
-"""
-"""
+from Config.Configures import config
+from logging import *
 
-def main():
-    # my code here
+if __name__ == '__main__':
 
-if __name__ == "__main__":
-    main()
+    debug(config)
+    debug(config)
