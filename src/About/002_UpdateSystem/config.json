@@ -1,14 +1,14 @@
 {
     "uboot" : {
-        "cmd" : "ls -al /"
+        "cmd" : "dd if=/dev/zero of=/dev/mmcblk3 bs=1k seek=384 conv=fsync count=129 && echo 0 > /sys/block/mmcblk3boot0/force_ro && dd if=./uploads/u-boot-imx6dlsabresd_sd.imx of=/dev/mmcblk3boot0 bs=512 seek=2 2>&1"
     },
     "zImage" : {
-        "cmd" : "ls -l /"
+        "cmd" : "cp uploads/zImage /mnt/sdcard/mmcblk3p1/zImage && echo $?"
     },
     "dtb" : {
-        "cmd" : "ls -a /"
+        "cmd" : "cp uploads/zImage-imx6dl-sabresd.dtb /mnt/sdcard/mmcblk3p1/zImage-imx6dl-sabresd.dtb && echo $?"
     },
     "file" : {
-        "cmd" : "ls /"
+        "cmd" : "ls ./uploads"
     }
 }

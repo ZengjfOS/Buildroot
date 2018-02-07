@@ -5,7 +5,7 @@
     if ($_FILES["fileToUpload"]["error"] > 0)
     {
         $json_array["status"] = "error";
-        $json_array["result"] = "Return Code: " . $_FILES["fileToUpload"]["error"];
+        $json_array["result"] = "Return Code: " . $_FILES["fileToUpload"]["error"] . "<br />";
     }
     else
     {
@@ -32,18 +32,18 @@
             if ($type == "uboot") {
                 $json_array["status"] = "ok";
                 $json_array["cmd"] = $MiniOS->configs[$type]["cmd"];
-                $json_array["result"] = exec($MiniOS->configs[$type]["cmd"]);
+                $json_array["result"] = shell_exec($MiniOS->configs[$type]["cmd"]);
             } else if ($type == "zImage") {
                 $json_array["cmd"] = $MiniOS->configs[$type]["cmd"];
-                $json_array["result"] = exec($MiniOS->configs[$type]["cmd"]);
+                $json_array["result"] = shell_exec($MiniOS->configs[$type]["cmd"]);
                 $json_array["status"] = "ok";
             } else if ($type == "dtb") {
                 $json_array["cmd"] = $MiniOS->configs[$type]["cmd"];
-                $json_array["result"] = exec($MiniOS->configs[$type]["cmd"]);
+                $json_array["result"] = shell_exec($MiniOS->configs[$type]["cmd"]);
                 $json_array["status"] = "ok";
             } else if ($type == "file") {
                 $json_array["cmd"] = $MiniOS->configs[$type]["cmd"];
-                $json_array["result"] = exec($MiniOS->configs[$type]["cmd"]);
+                $json_array["result"] = shell_exec($MiniOS->configs[$type]["cmd"]);
                 $json_array["status"] = "ok";
             } else {
                 $json_array["status"] = "error";
