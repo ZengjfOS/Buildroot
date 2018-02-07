@@ -9,7 +9,7 @@
     if ($categories == "hardware_gpio") {
 
         if ($type == "output") {
-            $ret = exec("gpiotool -p mio -m o -i ".$data["index"]." -v ".$data["value"]." | grep -E '^(0|1|-1)'");
+            $ret = exec("sudo gpiotool -p mio -m o -i ".$data["index"]." -v ".$data["value"]." | grep -E '^(0|1|-1)'");
             if ($ret == "0") {
                 $json_array["status"] = "ok";
             } else{
@@ -18,7 +18,7 @@
             $json_array["result"] = $ret;
         } else if ($type == "input") {
             for ($i = 0; $i < 4; $i++) {
-                $ret = exec("gpiotool -p mio -m i -i ".($i + 4)." | grep -E '^(0|1|-1)'");
+                $ret = exec("sudo gpiotool -p mio -m i -i ".($i + 4)." | grep -E '^(0|1|-1)'");
                 if ($ret == "0" || $ret == "1") {
                     $json_array["gpios"]["in_".$i]["status"] = "ok";
                 } else {

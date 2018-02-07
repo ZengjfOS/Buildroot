@@ -45,7 +45,7 @@
         },
         "eMMC" : {
             "cmd" : {
-                "armv7l" : "fdisk -l | grep mmcblk3: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
+                "armv7l" : "sudo fdisk -l | grep mmcblk3: | awk -F ':' '{print $2}' | awk -F ',' '{print $1}'",
                 "x86_64" : "fdisk -l | grep /dev/sda | awk -F ':' '{print $2}' | awk -F ',' '{print $1}' | head -n 1 | xargs"
             },
             "compare" : {
@@ -143,7 +143,7 @@
         },
         "MIO_I2C3" : {
             "index" : 2,
-            "shell" : "gpiotool -p i2c3 -m t | grep '^0'",
+            "shell" : "sudo gpiotool -p i2c3 -m t | grep '^0'",
             "descriptor" : "MIO I2C3",
             "status" : "error"
         },
@@ -161,13 +161,13 @@
         },
         "DB9_RS232" : {
             "index" : 5,
-            "shell" : "uartRS /dev/ttymxc2 9600 4 '0123456789' | grep 0123456789",
+            "shell" : "sudo uartRS /dev/ttymxc2 9600 4 '0123456789' | grep 0123456789",
             "descriptor" : "UART3",
             "status" : "error"
         },
         "MIO_8_GPIO" : {
             "index" : 6,
-            "shell" : "gpiotool -m t",
+            "shell" : "sudo gpiotool -m t",
             "descriptor" : "gpio",
             "status" : "error"
         },
@@ -191,13 +191,13 @@
         },
         "MIO_UART2" : {
             "index" : 10,
-            "shell" : "uartRS /dev/ttymxc1 9600 4 '0123456789' | grep 0123456789",
+            "shell" : "sudo uartRS /dev/ttymxc1 9600 4 '0123456789' | grep 0123456789",
             "descriptor" : "uart2",
             "status" : "error"
         },
         "CON2_UART4" : {
             "index" : 11,
-            "shell" : "uartRS /dev/ttymxc3 9600 4 '0123456789' | grep 0123456789",
+            "shell" : "sudo uartRS /dev/ttymxc3 9600 4 '0123456789' | grep 0123456789",
             "descriptor" : "uart4",
             "status" : "error"
         },
@@ -215,19 +215,19 @@
         },
         "Screen" : {
             "index" : 14,
-            "shell" : "fbset | grep '800x480-59'",
+            "shell" : "sudo fbset | grep '800x480-59'",
             "descriptor" : "Framebuffer",
             "status" : "error"
         },
-        "Screen" : {
+        "Buzzer" : {
             "index" : 15,
-            "shell" : "buzzertool -m t | grep '^0'",
-            "descriptor" : "Framebuffer",
+            "shell" : "sudo buzzertool -m t | grep '^0'",
+            "descriptor" : "pwm buzzer",
             "status" : "error"
         },
         "CAN1" : {
             "index" : 16,
-            "shell" : "gpiotool -p can1 -m t | grep '^0'",
+            "shell" : "sudo gpiotool -p can1 -m t | grep '^0'",
             "descriptor" : "CAN GPIO",
             "status" : "error"
         }

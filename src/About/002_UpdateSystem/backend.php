@@ -5,7 +5,7 @@
     if ($_FILES["fileToUpload"]["error"] > 0)
     {
         $json_array["status"] = "error";
-        $json_array["result"] = "Return Code: " . $_FILES["fileToUpload"]["error"] . "<br />";
+        $json_array["result"] = "Return Code: " . $_FILES["fileToUpload"]["error"];
     }
     else
     {
