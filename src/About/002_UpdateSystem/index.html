@@ -9,7 +9,7 @@
           <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="button" onclick="uploadFile()" value="Upload" />
+          <input type="button" onclick="uploadFile(this)" name="upload_uboot" value="Upload" />
         </td>
         <td class="UpdateSystemTableTd">
           <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
@@ -25,7 +25,7 @@
           <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="button" onclick="uploadFile()" value="Upload" />
+          <input type="button" onclick="uploadFile(this)" name="upload_zImage" value="Upload" />
         </td>
         <td class="UpdateSystemTableTd">
           <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
@@ -41,7 +41,7 @@
           <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="button" onclick="uploadFile()" value="Upload" />
+          <input type="button" onclick="uploadFile(this)" name="upload_dtb" value="Upload" />
         </td>
         <td class="UpdateSystemTableTd">
           <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
@@ -57,7 +57,7 @@
           <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd_Update">
-          <input type="button" onclick="uploadFile()" value="Upload" />
+          <input type="button" onclick="uploadFile(this)" name="upload_file" value="Upload" />
         </td>
         <td class="UpdateSystemTableTd">
           <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>

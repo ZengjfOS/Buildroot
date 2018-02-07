@@ -8,16 +8,15 @@ function fileSelected() {
             fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
         else
             fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
-
-        document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
-        document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
-        document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
     }
 }
 
-function uploadFile() {
+function uploadFile(btn) {
     var fd = new FormData();
+    type = btn.name.split("_")[1];
+    json_data = {"categories":"upload", "type": type};
 
+    fd.append("data", JSON.stringify(json_data));
     fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
 
     var xhr = new XMLHttpRequest();
@@ -27,7 +26,8 @@ function uploadFile() {
     xhr.addEventListener("error", uploadFailed, false);
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", "upload.php");
+    console.log(frame_argv["path"]);
+    xhr.open("POST", frame_argv["path"] + "/backend.php");
 
     xhr.send(fd);
 }
