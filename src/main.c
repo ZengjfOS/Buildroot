@@ -70,7 +70,6 @@ int gpio_export(unsigned int gpio)
 {
 	int fd, len;
 	char str_gpio[4];
-	struct gpio_exp *new_gpio, *g;
 
 	if ((fd = open("/sys/class/gpio/export", O_WRONLY)) < 0)
 	{
@@ -87,7 +86,6 @@ int gpio_unexport(unsigned int gpio)
 {
 	int fd, len;
 	char str_gpio[4];
-	struct gpio_exp *g, *temp, *prev_g = NULL;
 
 	if ((fd = open("/sys/class/gpio/unexport", O_WRONLY)) < 0)
 		return -1;
