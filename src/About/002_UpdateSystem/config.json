@@ -1,8 +1,14 @@
 {
-    "input" : {
-        "cmd" : "", 
+    "uboot" : {
+        "cmd" : "ls -al /"
     },
-    "output" : {
-        "cmd" : "", 
+    "zImage" : {
+        "cmd" : "ls -l /"
+    },
+    "dtb" : {
+        "cmd" : "ls -a /"
+    },
+    "file" : {
+        "cmd" : "ls /"
     }
 }

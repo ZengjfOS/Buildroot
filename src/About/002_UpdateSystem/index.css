@@ -34,3 +34,11 @@
     text-align: center;
     padding: 5px;
 }
+
+.UpdateSystemProgressBar{
+    width: 20%;
+    border: 1px solid black;
+    font-size: larger;
+    text-align: center;
+    padding: 5px;
+}

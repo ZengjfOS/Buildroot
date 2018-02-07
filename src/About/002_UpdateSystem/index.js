@@ -1,14 +1,4 @@
 function fileSelected() {
-    var file = document.getElementById('fileToUpload').files[0];
-
-    if (file) {
-        var fileSize = 0;
-
-        if (file.size > 1024 * 1024)
-            fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-        else
-            fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
-    }
 }
 
 function uploadFile(btn) {
@@ -17,10 +7,11 @@ function uploadFile(btn) {
     json_data = {"categories":"upload", "type": type};
 
     fd.append("data", JSON.stringify(json_data));
-    fd.append("fileToUpload", document.getElementById('fileToUpload').files[0]);
+    fd.append("fileToUpload", document.getElementById(type + '_fileToUpload').files[0]);
 
     var xhr = new XMLHttpRequest();
 
+    document.getElementById('progressBar').value = 0;
     xhr.upload.addEventListener("progress", uploadProgress, false);
     xhr.addEventListener("load", uploadComplete, false);
     xhr.addEventListener("error", uploadFailed, false);
@@ -46,6 +37,10 @@ function uploadProgress(evt) {
 function uploadComplete(evt) {
     /* This event is raised when the server send back a response */
     document.getElementById("showBack").innerHTML = evt.target.responseText;
+    obj = JSON.parse(evt.target.responseText);
+
+    if (obj["status"] == "ok")
+        document.getElementById(obj["type"] + '_update_status').src = "img/ok.png";
 }
 
 function uploadFailed(evt) {

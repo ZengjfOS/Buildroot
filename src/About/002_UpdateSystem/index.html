@@ -1,68 +1,65 @@
 <div>
   <table align="center" width="80%">
     <tr>
-      <form id="updata_uboot" enctype="multipart/form-data" method="post" action="upload.php">
         <td class="UpdateSystemTableTd_Info">
           <label for="fileToUpload">U-Boot</label>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+          <input type="file" id="uboot_fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
           <input type="button" onclick="uploadFile(this)" name="upload_uboot" value="Upload" />
         </td>
-        <td class="UpdateSystemTableTd">
-          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        <td class='UpdateSystemTableTd'>
+          <img src='img/error.png' width='30' height='30' id='uboot_update_status'/>
         </td>
-      </form>
     </tr>
     <tr>
-      <form id="updata_zImage" enctype="multipart/form-data" method="post" action="upload.php">
         <td class="UpdateSystemTableTd_Info">
           <label for="fileToUpload">zImage</label>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+          <input type="file" id="zImage_fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
           <input type="button" onclick="uploadFile(this)" name="upload_zImage" value="Upload" />
         </td>
-        <td class="UpdateSystemTableTd">
-          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        <td class='UpdateSystemTableTd'>
+          <img src='img/error.png' width='30' height='30' id='zImage_update_status'/>
         </td>
-      </form>
     </tr>
     <tr>
-      <form id="updata_dtb" enctype="multipart/form-data" method="post" action="upload.php">
         <td class="UpdateSystemTableTd_Info">
           <label for="fileToUpload">dtb</label>
         </td>
         <td class="UpdateSystemTableTd">
-          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+          <input type="file" id="dtb_fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd">
           <input type="button" onclick="uploadFile(this)" name="upload_dtb" value="Upload" />
         </td>
-        <td class="UpdateSystemTableTd">
-          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        <td class='UpdateSystemTableTd'>
+          <img src='img/error.png' width='30' height='30' id='dtb_update_status'/>
         </td>
-      </form>
     </tr>
     <tr>
-      <form id="updata_dtb" enctype="multipart/form-data" method="post" action="upload.php">
         <td class="UpdateSystemTableTd_Info">
           <label for="fileToUpload">common file</label>
         </td>
         <td class="UpdateSystemTableTd_Select">
-          <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+          <input type="file"id="file_fileToUpload" onchange="fileSelected();"/>
         </td>
         <td class="UpdateSystemTableTd_Update">
           <input type="button" onclick="uploadFile(this)" name="upload_file" value="Upload" />
         </td>
-        <td class="UpdateSystemTableTd">
-          <progress id="progressBar" max="100" value="0"></progress><label id="progressBarPercent">0%</label>
+        <td class='UpdateSystemTableTd'>
+          <img src='img/error.png' width='30' height='30' id='file_update_status'/>
         </td>
-      </form>
+    </tr>
+    <tr>
+      <td colspan="4" class="UpdateSystemTableTd" align="center">
+        <progress style="width:50%" id="progressBar" max="100" value="0"></progress><label style="width:20%" id="progressBarPercent">0%</label>
+      </td>
     </tr>
   </table>
   <br> <br> <br>
