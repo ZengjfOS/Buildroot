@@ -36,7 +36,6 @@ class WSS (Thread):
             message = message[:200]+'..'
         info("Client(%d) said: %s" % (client['id'], message))
 
-        self.server.send_message(client, message)
         self.message_parser(client, message)
 
     def run(self):
