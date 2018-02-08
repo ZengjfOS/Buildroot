@@ -215,6 +215,37 @@ function nav_language_change(obj) {
     });
 }
 
+class AplexOS {
+    constructor() {
+        console.log("AplexOS")
+        this.config = null;
+        this.ws = null;
+    }
+}
+
+aplexos = new AplexOS();
+
+function wss_init() {
+    ws = new WebSocket("ws://" + configs["websocket"]["wss_ip"] + ":" + configs["websocket"]["wss_port"] + "/");
+    ws.onopen = function() {
+        console.log("onopen");
+    }
+
+    ws.onmessage = function(e) {
+        console.log("onmessage: " + e.data);
+    }
+
+    ws.onclose = function() {
+        console.log("onclose");
+    }
+
+    ws.onerror = function() {
+        console.log("onerror");
+    }
+
+    aplexos.ws = ws;
+}
+
 $(function(){ 
     show_nav_frame();
 
@@ -237,5 +268,8 @@ $(function(){
     });
 
     nav_language_change();
+
+    aplexos.config = configs;
+    wss_init();
 });
 

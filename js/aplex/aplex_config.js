@@ -4,6 +4,10 @@ var configs = {
     "github" : "https://github.com/AplexOS",
     "version" : "0.0.1",
     "language" : "en",
+    "websocket": {
+        "wss_ip": "192.168.1.202",
+        "wss_port": "1883"
+    },
     "home_page" : {
         "show" : true,
         "Hardware" : {
