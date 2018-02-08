@@ -1,0 +1,38 @@
+#! /bin/sh
+
+set -e
+
+DESC="websocket"
+NAME=main.py
+DAEMON_PATH=/var/www/websocket/
+DAEMON=${DAEMON_PATH}${NAME}
+PIDFILE=/var/run/${DESC}.pid
+
+case "$1" in
+  start)
+	printf "Starting $DESC: "
+	chmod +x $DAEMON
+	cd $DAEMON_PATH
+	start-stop-daemon --start -x -b --exec $DAEMON --pidfile $PIDFILE --make-pidfile > /dev/null 2>&1 &
+	cd -
+	echo "OK"
+	;;
+  stop)
+	printf "Stopping $DESC: "
+	start-stop-daemon --stop --pidfile $PIDFILE --retry 10
+	echo "OK"
+	;;
+  restart|force-reload)
+	echo "Restarting $DESC: "
+	$0 stop
+	sleep 1
+	$0 start
+	echo ""
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
