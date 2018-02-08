@@ -42,7 +42,7 @@
         // You can send message to the Web Socket using ws.send.
         ws.send(input.value);
         output("send: " + input.value);
-        input.value = '{"zengjf":"id"}';
+        input.value = '{"categories":"hardware_gpio", "type": "output", "index": 0, "value": 1}';
         input.focus();
       }
 
@@ -67,7 +67,7 @@
     <!-- 点击submit之后，调用onSubmit函数 -->
     <form onsubmit="onSubmit(); return false;">
       <!-- 发送数据的输入框 -->
-    <input type="text" id="input" value='{"zengjf":"id"}'>
+    <input type="text" id="input" value='{"categories":"hardware_gpio", "type": "output", "index": 0, "value": 1}'>
     <input type="submit" value="Send">
     <!-- 点击关闭按钮关闭WebSocket连接 -->
     <button onclick="onCloseClick(); return false;">close</button>

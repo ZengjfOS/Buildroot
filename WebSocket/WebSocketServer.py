@@ -5,6 +5,7 @@ from websocket_server import WebsocketServer
 from threading import Thread
 from logging import *
 from Config.Configures import config
+from Hardware.GPIO import GPIO
 import json
 
 class WSS (Thread):
@@ -33,10 +34,10 @@ class WSS (Thread):
     def message_received(self, client, server, message):
         if len(message) > 200:
             message = message[:200]+'..'
-        print("Client(%d) said: %s" % (client['id'], message))
-        server.send_message(client, message)
+        info("Client(%d) said: %s" % (client['id'], message))
 
-        print(json.loads(message)["zengjf"])
+        self.server.send_message(client, message)
+        self.message_parser(client, message)
 
     def run(self):
         if self.isRunning:
@@ -45,4 +46,16 @@ class WSS (Thread):
     def stop(self):
         self.isRunning = False
         self.server.server_close();
+
+    # {"categories":"hardware_gpio", "type": "output", "index": index, "value": val};
+    def message_parser(self, client, message):
+        try:
+            parsed_message = json.loads(message)
+        except:
+            info("bad json data format.")
+            return
+
+        if parsed_message["categories"] in config.config["categories"]:
+            eval(config.config["categories"][parsed_message["categories"]])(self.server, client, parsed_message)
+
 

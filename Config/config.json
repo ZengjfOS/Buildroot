@@ -4,5 +4,9 @@
   "console": true,
   "websocketserver": {
     "wss_port": 1883
+  },
+  "categories": {
+    "hardware_gpio": "GPIO",
+    "hardware_uart": "UART"
   }
 }
