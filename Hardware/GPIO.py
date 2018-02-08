@@ -14,14 +14,14 @@ class GPIO:
         elif json_data["type"] == "input":
             ret["gpios"] = {}
             for index in range(4):
-                ret["gpios"]["in_" + index] = {}
+                ret["gpios"]["in_" + str(index)] = {}
                 shell_ret = ShellCmd.execute("gpiotool -p mio -m i -i " + str(index) + " | grep -E '^(0|1|-1)'")
-                if shell_ret == "0" or shell_ret == "1":
-                    ret["gpios"]["in_" + index]["status"] = "ok"
+                if shell_ret == "0\n" or shell_ret == "1\n":
+                    ret["gpios"]["in_" + str(index)]["status"] = "ok"
                 else:
-                    ret["gpios"]["in_" + index]["status"] = "error"
+                    ret["gpios"]["in_" + str(index)]["status"] = "error"
 
-                ret["gpios"]["in_" + index]["result"] = shell_ret
+                ret["gpios"]["in_" + str(index)]["result"] = shell_ret
 
             ret["status"] = "ok"
             pass
