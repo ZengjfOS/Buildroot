@@ -113,7 +113,6 @@ function GPIO_init(argv) {
 
 	aplexos.ws.onmessage = function(e) {
 		ret = JSON.parse(e.data);
-		console.log(ret);
 		if (ret["type"] == "output" ) {
 			if (ret["status"] == "ok") {
 				img = $('img[name="output_' + ret["index"] + '"]')[0];
