@@ -3,7 +3,8 @@
   "debug": true,
   "console": true,
   "websocketserver": {
-    "wss_port": 1883
+    "wss_port": 1883,
+    "wss_address": "0.0.0.0"
   },
   "categories": {
     "hardware_gpio": "GPIO",

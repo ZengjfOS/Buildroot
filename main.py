@@ -7,7 +7,7 @@ from logging import *
 from WebSocket.WebSocketServer import WSS
 
 def main():
-    wss = WSS(config.config["websocketserver"]["wss_port"]);
+    wss = WSS(config.config["websocketserver"]["wss_address"], config.config["websocketserver"]["wss_port"]);
     wss.start()
 
 if __name__ == '__main__':

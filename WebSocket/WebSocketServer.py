@@ -10,11 +10,11 @@ import json
 
 class WSS (Thread):
 
-    def __init__(self, port=1883):
+    def __init__(self, address="0.0.0.0", port=1883):
         Thread.__init__(self, name="WebSocketServer")
         self.isRunning = True
 
-        self.server = WebsocketServer(port, loglevel=DEBUG)
+        self.server = WebsocketServer(port, host=address, loglevel=DEBUG)
         self.server.set_fn_new_client(self.new_client)
         self.server.set_fn_client_left(self.client_left)
         self.server.set_fn_message_received(self.message_received)
