@@ -1,5 +1,8 @@
 {
-  "title":"AplexOS",
-  "debug":true,
-  "console":true
+  "title": "AplexOS",
+  "debug": true,
+  "console": true,
+  "websocketserver": {
+    "wss_port": 1883
+  }
 }

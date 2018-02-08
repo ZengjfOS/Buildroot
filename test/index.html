@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title>Simple client</title>
+
+    <script type="text/javascript">
+
+      var ws;
+
+      function init() {
+
+        // Connect to Web Socket
+        ws = new WebSocket("ws://localhost:1883/");
+
+        // Set event handlers.
+        // 连接WebSocket服务器成功，打开成功
+        ws.onopen = function() {
+          output("onopen");
+        };
+
+        // 收到WebSocket服务器数据
+        ws.onmessage = function(e) {
+          // e.data contains received string.
+          output("onmessage: " + e.data);
+        };
+
+        // 关闭WebSocket连接
+        ws.onclose = function() {
+          output("onclose");
+        };
+
+        // WebSocket连接出现错误
+        ws.onerror = function(e) {
+          output("onerror");
+          console.log(e)
+        };
+
+      }
+
+      // 将当前文本框中的内容发送到WebSocket
+      function onSubmit() {
+        var input = document.getElementById("input");
+        // You can send message to the Web Socket using ws.send.
+        ws.send(input.value);
+        output("send: " + input.value);
+        input.value = '{"zengjf":"id"}';
+        input.focus();
+      }
+
+      // 关闭WebSocket连接
+      function onCloseClick() {
+        ws.close();
+      }
+
+      // 在界面上显示接收到的数据，将替换掉一些需要转义的字符
+      function output(str) {
+        var log = document.getElementById("log");
+        var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
+          replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
+        log.innerHTML = escaped + "<br>" + log.innerHTML;
+      }
+
+    </script>
+  </head>
+
+  <!-- 文档加载完毕之后，会调用init函数进行处理 -->
+  <body onload="init();">
+    <!-- 点击submit之后，调用onSubmit函数 -->
+    <form onsubmit="onSubmit(); return false;">
+      <!-- 发送数据的输入框 -->
+    <input type="text" id="input" value='{"zengjf":"id"}'>
+    <input type="submit" value="Send">
+    <!-- 点击关闭按钮关闭WebSocket连接 -->
+    <button onclick="onCloseClick(); return false;">close</button>
+  </form>
+  <!-- 显示发送、接收到数据 -->
+  <div id="log"></div>
+</body>
+</html>
