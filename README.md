@@ -1,5 +1,7 @@
 # README
 
+WebSocket的代码存放于：[CommonWebSocket branch](https://github.com/ZengjfOS/Buildroot/tree/CommonWebSocket)，使用PyCharm IDE开发。使用WebSocket主要因为像UART、CAN等功能需要用到实时通信才能比较完善的实现。
+
 ## 框架设计思路
 
 * 整个网页内容分为硬件接口、协议测试、应用软件、关于AplexOS；
@@ -84,7 +86,7 @@ function GPIO_init(argv) {
 * 一些变量赋值；
 * 函数名是`js/aplex_config`中的`parts`对应的`pages`的`key`名称，参数`argv`中有当前组件的访问路径； 
 * 如果这个函数未实现，是不会被调用的：
-  ```
+  ```Javascript
   function call_string_function(function_name, json_data) {
       // string as a function call
       var fn = window[function_name]; 
@@ -111,3 +113,42 @@ function GPIO_init(argv) {
       });
   }
   ```
+
+**3. index.css使用方法**
+
+* 不要直接修改标准的element来设置样式；
+* 使用class重新定义样式；
+* 样式前缀最好能够统一，这样可以避免不同的组件相互影响:
+  ```CSS
+  .sps_header_css{
+    height: 56px;
+    background-image: url("../img/gateway-01.png");
+    background-repeat: repeat-x;
+  }
+  
+  .sps_foot_css{
+    height: 34px;
+    background-image: url("../img/gateway-03.png");
+    background-repeat: repeat-x;
+  }
+  
+  .sps_logo_css{
+    float: right;
+  }
+  ```
+
+**4. config.json使用方法**
+
+```Javascript
+$(function(){ 
+    $.getJSON(frame_argv["path"] + "/config.json", function(data) {
+        MiniConfig = data;
+
+        console.log(MiniConfig);
+        ...
+    });
+});
+```
+
+* 如上所示，是组件使用config.json的方法；
+* config.json是由组件自己的index.js进行加载的，所以config.json是否使用有组件决定；
