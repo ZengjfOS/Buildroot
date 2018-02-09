@@ -4,7 +4,7 @@
 from websocket_server import WebsocketServer
 from threading import Thread
 from logging import *
-from Config.Configures import config
+from Config.Configure import config
 from Hardware.GPIO import GPIO
 import json
 
