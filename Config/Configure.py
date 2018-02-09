@@ -8,14 +8,18 @@ from logging import *
 from pyinotify import WatchManager, Notifier, ProcessEvent
 
 class InotifyEventHandler(ProcessEvent):
-    def process_IN_MODIFY(self, event):
-        info("process_IN_MODIFY")
+
+    def process_IN_CLOSE(self, event):
+        """
+        This method is called on these events: IN_CLOSE_WRITE and
+        IN_CLOSE_NOWRITE.
+        """
         # reparse the configure file
-        if event.name.find(os.path.basename(ConfigureInotify.get_config_file())) == 0:
-            ConfigureInotify.parse_config()
+        if event.name == os.path.basename(Configure.get_config_file()):
+            Configure.parse_config()
 
 # 初始化配置
-class ConfigureInotify(threading.Thread):
+class Configure(threading.Thread):
 
     __mutex = threading.Lock()
     __configure_file_path = "Config/config.json"
@@ -26,7 +30,7 @@ class ConfigureInotify(threading.Thread):
         if not hasattr(cls, "_inst"):
 
             # 单例对象
-            cls._inst = super(ConfigureInotify, cls).__new__(cls)
+            cls._inst = super(Configure, cls).__new__(cls)
             json_data = open(cls.__configure_file_path)
             cls.config = json.load(json_data)
 
@@ -59,8 +63,6 @@ class ConfigureInotify(threading.Thread):
         cls.config = json.load(json_data)
         cls.__mutex.release()
 
-        print("parse_config")
-
     @classmethod
     def set_config_file(cls, file_path):
 
@@ -74,7 +76,7 @@ class ConfigureInotify(threading.Thread):
     @classmethod
     def run(cls):
         wm = WatchManager()
-        mask = pyinotify.IN_MODIFY
+        mask = pyinotify.IN_CLOSE_WRITE
         notifier = Notifier(wm, InotifyEventHandler())
         wm.add_watch(os.path.dirname(cls.__configure_file_path), mask, auto_add= True, rec=True)
 
@@ -90,11 +92,27 @@ class ConfigureInotify(threading.Thread):
                 notifier.stop()
                 break
 
+    @classmethod
+    def getVal(cls, keys):
+        if cls.config != None :
+            try:
+                cls.__mutex.acquire()
+                exec_str = "cls.config"
+                for key in keys:
+                    exec_str += "[\"" + key + "\"]"
+                ret = eval(exec_str)
+            except:
+                ret = None
+            finally:
+                cls.__mutex.release()
+                return ret
+        else :
+            return None
 
-configureInotify = ConfigureInotify()
+config = Configure()
 
 if __name__ == '__main__':
 
-    configureInotify.set_config_file("Config/config.json")
-    configureInotify.start()
+    config.set_config_file("Config/config.json")
+    config.start()
 
