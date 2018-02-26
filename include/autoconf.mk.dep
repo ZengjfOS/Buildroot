@@ -7,7 +7,7 @@ include/config/auto.conf: include/common.h include/linux/kconfig.h \
  arch/arm/include/asm/imx-common/regs-common.h include/linux/types.h \
  include/linux/posix_types.h include/linux/stddef.h \
  arch/arm/include/asm/posix_types.h arch/arm/include/asm/types.h \
- /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdbool.h \
+ /home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stdbool.h \
  arch/arm/include/asm/imx-common/gpio.h arch/arm/include/asm/config.h \
  include/config_fallbacks.h include/asm-offsets.h include/linux/bitops.h \
  include/linux/compiler.h include/linux/compiler-gcc.h \
@@ -17,10 +17,10 @@ include/config/auto.conf: include/common.h include/linux/kconfig.h \
  include/linux/string.h arch/arm/include/asm/string.h \
  include/linux/linux_string.h include/linux/stringify.h \
  arch/arm/include/asm/ptrace.h arch/arm/include/asm/proc-armv/ptrace.h \
- /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdarg.h \
+ /home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stdarg.h \
  include/linux/kernel.h include/part.h include/ide.h include/common.h \
  include/flash.h include/image.h include/compiler.h \
- /home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stddef.h \
+ /home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stddef.h \
  arch/arm/include/asm/byteorder.h include/linux/byteorder/little_endian.h \
  include/linux/byteorder/swab.h include/linux/byteorder/generic.h \
  include/lmb.h arch/arm/include/asm/u-boot.h include/asm-generic/u-boot.h \
@@ -67,7 +67,7 @@ arch/arm/include/asm/posix_types.h:
 
 arch/arm/include/asm/types.h:
 
-/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdbool.h:
+/home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stdbool.h:
 
 arch/arm/include/asm/imx-common/gpio.h:
 
@@ -107,7 +107,7 @@ arch/arm/include/asm/ptrace.h:
 
 arch/arm/include/asm/proc-armv/ptrace.h:
 
-/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stdarg.h:
+/home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stdarg.h:
 
 include/linux/kernel.h:
 
@@ -123,7 +123,7 @@ include/image.h:
 
 include/compiler.h:
 
-/home/zengjf/zengjf/buildroot-2017.02.3/output/host/usr/lib/gcc/arm-AplexOS-linux-gnueabi/5.4.0/include/stddef.h:
+/home/zengjf/zengjf/Buildroot/buildroot/output/host/usr/lib/gcc/arm-buildroot-linux-gnueabihf/5.4.0/include/stddef.h:
 
 arch/arm/include/asm/byteorder.h:
 

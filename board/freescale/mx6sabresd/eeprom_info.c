@@ -828,11 +828,11 @@ void set_kernel_env(int width, int height)
 	{
 		int check_backlight_frequency=AT24c02_eeprom.data.backlight[4]*256+AT24c02_eeprom.data.backlight[5];
 		sprintf(Backlightprm,"Backlight_polarity=%d,Backlight_min=%d,Backlight_frequency=%d",AT24c02_eeprom.data.backlight[2]?1:0,AT24c02_eeprom.data.backlight[3],check_backlight_frequency);
-		sprintf(envprm,"console=ttymxc0,115200 init=/init %s %s %s androidboot.hardware=freescale cma=384M usbcore.autosuspend=-1",videoprm,consoleprm,Backlightprm);
+		sprintf(envprm,"console=ttymxc0,115200 init=/init %s %s %s androidboot.hardware=freescale cma=384M usbcore.autosuspend=-1 consoleblank=0",videoprm,consoleprm,Backlightprm);
 	}
 	else
 	{
-		sprintf(envprm,"console=ttymxc0,115200 init=/init %s %s androidboot.hardware=freescale cma=384M usbcore.autosuspend=-1",videoprm,consoleprm);
+		sprintf(envprm,"console=ttymxc0,115200 init=/init %s %s androidboot.hardware=freescale cma=384M usbcore.autosuspend=-1 consoleblank=0",videoprm,consoleprm);
 	}
 	setenv("bootargs",envprm);
 #else
@@ -842,17 +842,17 @@ void set_kernel_env(int width, int height)
 		int check_backlight_frequency=AT24c02_eeprom.data.backlight[4]*256+AT24c02_eeprom.data.backlight[5];
 		sprintf(Backlightprm,"Backlight_polarity=%d,Backlight_min=%d,Backlight_frequency=%d",AT24c02_eeprom.data.backlight[2]?1:0,AT24c02_eeprom.data.backlight[3],check_backlight_frequency);
 #ifdef CMDLINE_ADD_QUIET
-		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s %s usbcore.autosuspend=-1 quiet",videoprm,Backlightprm);
+		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s %s usbcore.autosuspend=-1 quiet consoleblank=0",videoprm,Backlightprm);
 #else
-		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s %s usbcore.autosuspend=-1",videoprm,Backlightprm);
+		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s %s usbcore.autosuspend=-1 consoleblank=0",videoprm,Backlightprm);
 #endif
 	}
 	else
 	{
 #ifdef CMDLINE_ADD_QUIET
-		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s usbcore.autosuspend=-1 quiet",videoprm);
+		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s usbcore.autosuspend=-1 quiet consoleblank=0",videoprm);
 #else
-		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s usbcore.autosuspend=-1",videoprm);
+		sprintf(envprm,"setenv bootargs console=${console},${baudrate} ${smp} root=${mmcroot} %s usbcore.autosuspend=-1 consoleblank=0",videoprm);
 #endif
 	}
 	setenv("mmcargs",envprm);
