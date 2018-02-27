@@ -46,3 +46,8 @@ dl文件夹包下载：https://pan.baidu.com/s/1i7aOTm9
 只需要修改config文件即可完成自动测试，后台框架采用PHP编码；
 
 * [Web Test](https://github.com/ZengjfOS/Buildroot/tree/7112S_WebTest_Page)
+
+## i.MX6 Download Tool
+
+* [Prebuild U-Boot and Kernel](customize/prebuild/)
+* [Download Tool -- MfgTool](https://github.com/ZengjfOS/MfgTool)
