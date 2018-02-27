@@ -149,7 +149,7 @@
         },
         "Keyboard" : {
             "index" : 3,
-            "shell" : "grep 'kbd event' /proc/bus/input/devices",
+            "shell" : "grep 'kbd event' /proc/bus/input/devices | grep [2-9]",
             "descriptor" : "usb",
             "status" : "error"
         },
