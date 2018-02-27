@@ -1,3 +1,4 @@
+# CONFIG_FILE=beaglebone_defconfig
 CONFIG_FILE=freescale_imx6dlsabresd_defconfig
 
 WEBPAGE_HOME=buildroot/output/target/var/www/
@@ -6,8 +7,8 @@ GITHUB_REPO=https://github.com/ZengjfOS/Buildroot
 WEBPAGE_BRANCH=CommonWebPageArch
 WEBSOCKET_BRANCH=CommonWebSocket
 
-default: config
-	sudo apt-get install texinfo
+default: config webpage
+	sudo apt-get -y install texinfo
 	cd buildroot && make -j8
 
 config:
