@@ -2,6 +2,7 @@
 
 ## Analysis
 
+* [0005_iot-edge-sdk-for-iot-parser_porting.md](0005_iot-edge-sdk-for-iot-parser_porting.md)
 * [0004_Freescale_SD_img_Script.md](0004_Freescale_SD_img_Script.md)
 * [0003_Custom_Buildroot_Filesystem.md](0003_Custom_Buildroot_Filesystem.md)
 * [0002_Freescale_i.MX6.md](0002_Freescale_i.MX6.md)
