@@ -1,0 +1,38 @@
+diff --git a/modbus/nossl/Makefile b/modbus/nossl/Makefile
+index bb95325..d057645 100644
+--- a/modbus/nossl/Makefile
++++ b/modbus/nossl/Makefile
+@@ -1,11 +1,11 @@
+ SOURCES = ../src/modbuslib.c ../src/common.c ../src/business.c ../src/main.c ../src/ringbufi.c ../src/mqttsender.c
+ HEADERS = ../src/data.h ../src/modbuslib.h ../src/common.h ../src/business.h ../src/thread.h ../src/ringbufi.h ../src/mqttsender.h
+ CC ?= gcc
+-LIBDIR ?= /usr/local/lib
+-INCDIR ?= /usr/local/include
++LIBDIR ?= 
++INCDIR ?= 
+ DEBUGFLAG ?=
+ bdModbusGateway: $(SOURCES) $(HEADERS)
+-	$(CC) -o ../../$@ $(SOURCES) $(DEBUGFLAG) -I $(INCDIR) -L $(LIBDIR) -l:libcjson.a -lm -l:libmodbus.a -l:libpaho-mqtt3c-static.a -lpthread 
++	$(CC) -o ../../$@ $(SOURCES) $(DEBUGFLAG) -I $(INCDIR) -L $(LIBDIR) -lcjson -lm -lmodbus -lpaho-mqtt3c -lpthread
+ 
+ clean:
+ 	rm ../../bdModbusGateway
+diff --git a/modbus/withssl/Makefile b/modbus/withssl/Makefile
+index 17dff37..da4cea2 100644
+--- a/modbus/withssl/Makefile
++++ b/modbus/withssl/Makefile
+@@ -1,11 +1,11 @@
+ SOURCES = ../src/*.c
+ HEADERS = ../src/*.h
+ CC ?= gcc
+-LIBDIR ?= /usr/local/lib
+-INCDIR ?= /usr/local/include
++LIBDIR ?= 
++INCDIR ?= 
+ DEBUGFLAG ?=
+ bdModbusGateway: $(SOURCES) $(HEADERS)
+-	$(CC) -o ../../$@ $(SOURCES) $(DEBUGFLAG) -I $(INCDIR) -L $(LIBDIR) -l:libcjson.a -lm -l:libmodbus.a -l:libssl.a -l:libcrypto.a -l:libpaho-mqtt3cs-static.a -lpthread -l:libssl.a -l:libcrypto.a -ldl
++	$(CC) -o ../../$@ $(SOURCES) $(DEBUGFLAG) -I $(INCDIR) -L $(LIBDIR) -lcjson -lm -lmodbus -lssl -lcrypto -lpaho-mqtt3cs -lpthread -ldl
+ 
+ clean:
+ 	rm ../../bdModbusGateway

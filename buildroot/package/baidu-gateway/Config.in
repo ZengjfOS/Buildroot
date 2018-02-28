@@ -1,0 +1,24 @@
+config BR2_PACKAGE_BAIDU_GATEWAY
+	bool "baidu_gateway"
+	select BR2_PACKAGE_CJSON
+	select BR2_PACKAGE_LIBMODBUS
+	select BR2_PACKAGE_PAHO_MQTT_C
+	help
+	  百度天工物联网EDGE SDK
+
+	  https://github.com/baidu/iot-edge-sdk-for-iot-parser
+
+choice
+	prompt "baidu_gateway Type"
+	default BR2_PACKAGE_BAIDU_GATEWAY_NO_SSL
+	depends on BR2_PACKAGE_BAIDU_GATEWAY
+	help
+	  Select baidu_gateway module format
+
+config BR2_PACKAGE_BAIDU_GATEWAY_NO_SSL
+	bool "no ssl"
+
+config BR2_PACKAGE_BAIDU_GATEWAY_WITH_SSL
+	bool "with ssl"
+
+endchoice

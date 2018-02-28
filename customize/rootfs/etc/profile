@@ -22,6 +22,7 @@ for i in /etc/profile.d/*.sh ; do
 done
 
 if [ `tty` == "/dev/tty0" ]; then
+	echo ""
 	#clear
 fi
 
