@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo 0 > /sys/block/mmcblk3boot0/force_ro
+dd if=/dev/zero of=/dev/mmcblk3boot0 bs=1024 count=10240
+dd if=/dev/zero of=/dev/mmcblk3 bs=1024 count=10240
