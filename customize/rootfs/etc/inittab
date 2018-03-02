@@ -25,7 +25,7 @@
 
 # Put a getty on the serial port
 ttymxc0::respawn:/sbin/getty -L  ttymxc0 0 vt100 # GENERIC_SERIAL
-tty0::respawn:/sbin/getty -L  tty0 0 vt100 # GENERIC_SERIAL
+tty1::respawn:/sbin/agetty  tty1 9600
 
 # Stuff to do for the 3-finger salute
 #::ctrlaltdel:/sbin/reboot
