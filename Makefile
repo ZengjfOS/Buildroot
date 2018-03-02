@@ -1,5 +1,6 @@
 # CONFIG_FILE=beaglebone_defconfig
 CONFIG_FILE=freescale_imx6dlsabresd_defconfig
+# CONFIG_FILE=support_Qt5_X11_OpcUa_defconfig
 
 WEBPAGE_HOME=buildroot/output/target/var/www/
 GITHUB_REPO=https://github.com/ZengjfOS/Buildroot

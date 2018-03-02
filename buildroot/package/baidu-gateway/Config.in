@@ -1,8 +1,8 @@
 config BR2_PACKAGE_BAIDU_GATEWAY
 	bool "baidu_gateway"
-	select BR2_PACKAGE_CJSON
-	select BR2_PACKAGE_LIBMODBUS
-	select BR2_PACKAGE_PAHO_MQTT_C
+	depends on BR2_PACKAGE_CJSON
+	depends on BR2_PACKAGE_LIBMODBUS
+	depends on BR2_PACKAGE_PAHO_MQTT_C
 	help
 	  百度天工物联网EDGE SDK
 
