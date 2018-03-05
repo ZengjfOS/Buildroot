@@ -21,7 +21,7 @@ for i in /etc/profile.d/*.sh ; do
 	unset i
 done
 
-if [ `tty` == "/dev/tty0" ]; then
+if [ `tty` == "/dev/tty1" ]; then
 	echo ""
 	echo "+----------------------------------------------------+"
 	echo "|     _              _                  ___    ____  |"
