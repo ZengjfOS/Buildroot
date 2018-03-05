@@ -230,6 +230,13 @@
             "shell" : "sudo gpiotool -p can1 -m t | grep '^0'",
             "descriptor" : "CAN GPIO",
             "status" : "error"
+        },
+        "Audio" : {
+            "index" : 17,
+            "shell" : "aplay /usr/share/sounds/alsa/Side_Left.wav > /dev/null 2>&1 && echo $?",
+            "descriptor" : "Audio Test",
+            "status" : "error"
+
         }
     }
 }
