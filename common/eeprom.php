@@ -47,5 +47,8 @@
 		fclose($eepromfile);
 	}
 
-	echo "OK";
+	$json_array["status"] = "ok";
+	$json_array["mac"] = $_GET["mac"];
+
+	echo json_encode($json_array);
 ?>
