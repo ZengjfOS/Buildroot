@@ -2,14 +2,9 @@
 	/**
 	 * get eeprom file data: dd if=/sys/bus/i2c/devices/3-0050/eeprom of=file
 	 * vim open file and execute show hex format: `:%!xxd`
-	 * get data use php:
-	 *     <?php
-	 *     	$eepromfile = fopen("/sys/bus/i2c/devices/3-0050/eeprom", "r+") or die("Unable to open file!");
-	 *     	print_r(unpack('C*', fgets($eepromfile)));
-	 *     	fclose($eepromfile);
-	 *     ?>
  	 */
 	if ($_GET["version"] == 3) {
+		// write to eeprom file
 		$bin_str .= pack('C', 0x01);
 		$bin_str .= pack('C', 0x06);
 
@@ -44,11 +39,29 @@
 
 		fwrite($eepromfile, $bin_str);
 
-		fclose($eepromfile);
-	}
+		// read back
+		fseek($eepromfile, 0);
 
-	$json_array["status"] = "ok";
-	$json_array["mac"] = $_GET["mac"];
+		$dataarray = unpack('C*', fgets($eepromfile));
+		$macaddress = "";
+		for ($x=0; $x<6; $x++) {
+			// $macaddress .= dechex($dataarray[$x +3]);
+			if ($x < 5)
+				$macaddress .= sprintf("%02X", $dataarray[$x +3]).":";
+			else
+				$macaddress .= sprintf("%02X", $dataarray[$x +3]);
+		}
+		fclose($eepromfile);
+
+		// check write read data
+		$json_array["status"] = "ok";
+		for ($x=0; $x<6; $x++) {
+			if (($_GET["mac"][$x * 2] != $macaddress[$x * 3]) || ($_GET["mac"][$x * 2 + 1] != $macaddress[$x * 3 + 1]))
+				$json_array["status"] = "error";
+		}
+
+		$json_array["mac"] = $macaddress;
+	}
 
 	echo json_encode($json_array);
 ?>
