@@ -59,5 +59,6 @@ obj-$(CONFIG_ECHO)		+= echo/
 obj-$(CONFIG_VEXPRESS_SYSCFG)	+= vexpress-syscfg.o
 obj-$(CONFIG_CXL_BASE)		+= cxl/
 obj-y               += com3mode.o
-obj-y               += gpio_mio.o
+obj-n               += gpio_mio.o
 obj-y               += pwm-buzzer.o
+# obj-y               += wm8962_ctl.o

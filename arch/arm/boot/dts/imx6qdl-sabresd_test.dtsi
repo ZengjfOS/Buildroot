@@ -101,7 +101,7 @@
 #if 1
 			//regulator-min-microvolt = <5000000>;
 			//regulator-max-microvolt = <5000000>;
-			gpio = <&gpio1 30 0>;	//MX6QDL_PAD_ENET_TXD0__GPIO1_IO30
+			gpio = <&gpio1 30 1>;	//MX6QDL_PAD_ENET_TXD0__GPIO1_IO30
 #endif
 			enable-active-high;
 		};
@@ -779,6 +779,7 @@
 				MX6QDL_PAD_NANDF_D7__GPIO2_IO07		0x80000000//gpio_out3
 				MX6QDL_PAD_SD1_DAT1__GPIO1_IO17		0x80000000//touch_int
 				//MX6QDL_PAD_EIM_D20__GPIO3_IO20	0x80000000//audio hp det
+				MX6QDL_PAD_ENET_TXD0__GPIO1_IO30	0x80000000//wm8962 power
 			>;
 		};
 
