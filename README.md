@@ -2,6 +2,8 @@
 
 WebSocket的代码存放于：[CommonWebSocket branch](https://github.com/ZengjfOS/Buildroot/tree/CommonWebSocket)，使用PyCharm IDE开发。使用WebSocket主要因为像UART、CAN等功能需要用到实时通信才能比较完善的实现。
 
+[MAC Burning Tool](https://github.com/ZengjfOS/BurningMac)
+
 ## 框架设计思路
 
 * 整个网页内容分为硬件接口、协议测试、应用软件、关于AplexOS；
